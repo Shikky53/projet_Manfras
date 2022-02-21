@@ -1,0 +1,162 @@
+body {
+    background-color: #3c3c3c !important;
+  }
+
+  h1, h2 {
+    text-decoration: underline rgb(13, 195, 236);
+    font-family: "Ailerons";
+    color: white;
+  }
+  
+  h3 {
+    font-size: 1.2em !important;
+    font-family: "lambda";
+    padding-top: 0.3em;
+    color: white;
+  }
+
+  h4 {
+    color: white;
+  }
+
+  .h6 {
+    color: white;
+  }
+  
+  p , a {
+    font-family: "lambda";
+  }
+
+  p {
+    color: white
+  }
+
+  nav {
+    background-color: #3c3c3c !important;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+  
+  a:hover h3 {
+    transition: 0.4s;
+    color: rgb(13, 195, 236) !important;
+  }
+  
+  button:hover {
+    transition: 0.4s;
+  }
+
+  .btn {
+    box-shadow: none !important;
+  }
+
+  .btn-outline-info {
+    border-color: rgb(13, 195, 236) !important;
+    color: rgb(13, 195, 236) !important;
+    box-shadow: none !important;
+  }
+
+  .btn-outline-info:focus {
+    outline: none !important;
+  }
+
+  .btn-outline-info:hover {
+    color: white !important;
+  }
+
+  .border-light {
+    border: 3px solid white !important;
+    border: none ;
+    border-radius: 10px;
+  }
+
+  .nav-item:hover {
+    background-color: #3131319d;
+    transition: 0.4s;
+  }
+  
+  .nav-item:hover a {
+    color: rgb(13, 195, 236) !important;
+  }
+  
+  .nav-item a {
+    text-decoration: none;
+    color: white !important;
+  }
+  
+  
+  .search {
+    background-color: #707070;
+    border-radius: 13px;
+  }
+  
+  nav input {
+    border: none;
+    background: none;
+    outline: none;
+  }
+
+  i {
+    color: white;
+  }
+
+  i:hover {
+    color: rgb(13, 195, 236);
+    transition: 0.5s !important;
+  }
+  
+  .allSection button:hover {
+    background-color: #3131319d !important;
+  }
+
+  /***************** Bannières *****************/
+
+
+.carousel-inner img {
+  height: 20em;
+  object-fit: cover;
+}
+
+.carousel-control-next {
+  width: 5% !important;
+}
+
+.carousel-control-prev {
+  width: 5% !important;
+}
+
+/***************** End Bannières *****************/
+
+.card {
+  background: none !important;
+}
+
+/***************** Footer *****************/
+
+footer {
+  margin-top: 2em;
+  background-color: rgb(44, 44, 44);
+  height: 7em;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+footer a:hover {
+  color: rgb(13, 195, 236);
+}
+
+footer span {
+  text-decoration: underline;
+}
+
+
+/***************** End Footer *****************/
