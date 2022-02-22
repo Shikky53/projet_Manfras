@@ -50,6 +50,7 @@ body {
 
   .btn {
     box-shadow: none !important;
+    font-family: "lambda";
   }
 
   .btn-outline-info {
@@ -160,3 +161,31 @@ footer span {
 
 
 /***************** End Footer *****************/
+
+.avatarProfile
+{
+    height:150px;
+    width:150px;
+    border-radius:50%;
+    object-fit: cover;
+    position: relative;
+    top: -80px;
+    left: 50px;
+    border: 3px solid white;
+}
+
+.form-label {
+  color: white !important;
+}
+
+.form-control {
+  background-color: #e4e0e0;
+}
+
+.form-select {
+  background-color: #cccccc;
+}
+
+.footer {
+  margin-top: 13em !important;
+}

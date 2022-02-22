@@ -22,6 +22,19 @@
                             <p class="pt-3">Date de création : {{manga.debut | date("d-M-Y")}}</p>
                         </div>
                         <div class="pb-4 text-center">
+                        
+                           {% if manga.editeur is same as null %}
+
+                          <p>Aucun</p>
+
+                            {% else %}
+
+                            <p>{{ manga.editeur.nom }}</p>
+                                
+                            {% endif %}
+
+                        </div>
+                        <div class="pb-4 text-center">
                             <a href="#" class="btn btn-outline-info">Ajouter un chapitre</a>
                         </div>
                         <div class="card-text text-center d-flex justify-content-around mb-3">

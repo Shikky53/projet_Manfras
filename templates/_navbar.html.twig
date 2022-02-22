@@ -12,18 +12,45 @@
         <li class="nav-item px-2">
           <a class="nav-link" href="#">Genres</a>
         </li>
+        {% if app.user %}
+
+        {% if app.user.roles[0] is same as "ROLE_ADMIN" %}
+
         <li class="nav-item px-2">
           <a class="nav-link" href="{{ path('manga_index') }}">Publiez</a>
         </li>
+
+        {% endif %}
+
+        {% else %}
+
+        <li class="nav-item px-2">
+          <a class="nav-link" href="{{ path('app_register') }}">Publiez</a>
+        </li>          
+
+        {% endif %}
       </ul>
       <form class="search m-3">
         <input class="text-light" type="text">
         <button class="btn" type="submit"><i class="fas fa-search"></i></button>
       </form>
       <div style="width : 100px;" class="d-flex align-items-center justify-content-between px-3">
+
+        {% if app.user %}
+
+        {% if app.user.roles[0] is same as "ROLE_ADMIN" %}
+        
+            <a href="{{ path('profile') }}"><i class="fas fa-user-circle"></i></a>
+            <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+
+        {% endif %}
+
+        {% else %}
+          
             <a href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i></a>
             <a href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i></a>
-            <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+        
+        {% endif %}
         </div>
     </div>
   </div>

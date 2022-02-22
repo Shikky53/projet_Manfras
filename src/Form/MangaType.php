@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Manga;
+use App\Entity\Editeur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -65,7 +67,20 @@ class MangaType extends AbstractType
                     'placeholder' => "Donnez le genre de votre manga..."
                 ]
             ])
-            ->add('statut')
+            ->add('statut',TextType::class,[
+                'required' => false,
+                'label' => 'Statut de votre manga',
+                'attr' => [
+                    'placeholder' => "Donnez le statut de votre manga..."
+                ]
+            ])
+            ->add('editeur',EntityType::class,[
+                'required' => false,
+                'label' => 'Sélection de l\'éditeur',
+                'class' => Editeur::class,
+                'placeholder' => '-- Choisir un éditeur (facultatif) --',
+                'choice_label' => 'nom'
+            ])
         ;
     }
 
