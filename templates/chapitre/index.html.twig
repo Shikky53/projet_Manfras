@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chapitre index{% endblock %}
+
+{% block body %}
+    <h1 class="px-3">Vos Chapitres</h1>
+            <div class="container px-3 py-4">
+                <a href="{{ path('chapitre_new') }}" class="px-5 btn btn-outline-info">Créer un nouveau chapitre</a>
+            </div>
+            
+            <div class="container py-3">
+                <div class="row justify-content-evenly">
+        <tbody>
+        {% for chapitre in chapitres %}
+            <tr>
+                <td>{{ chapitre.id }}</td>
+                <td>{{ chapitre.numero }}</td>
+                <td>
+                    <a href="{{ path('chapitre_show', {'id': chapitre.id}) }}">show</a>
+                    <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </div>
+        </div>
+{% endblock %}

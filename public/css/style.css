@@ -168,9 +168,6 @@ footer span {
     width:150px;
     border-radius:50%;
     object-fit: cover;
-    position: relative;
-    top: -80px;
-    left: 50px;
     border: 3px solid white;
 }
 

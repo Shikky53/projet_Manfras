@@ -4,11 +4,10 @@
 
 {% block body %}
 
-<div class="container py-5">
-    <div class="card">
-        <div class="card-body">
+<div class="container pt-3 mt-5">
+    <div class="mt-0">
             <div class="row">
-                <div class="col-12" style="max-height: 100px;height: 100px;">
+                <div class="col-6 text-start py-3">
                     {% if app.user.avatar is not same as null %}
 
                         <img class="avatarProfile" src="{{ app.user.avatar }}" alt="">
@@ -18,16 +17,12 @@
                         <img class="avatarProfile" src="https://images.unsplash.com/photo-1505440484611-23c171ad6e96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2908&q=80" alt="">
                     
                     {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="card-body">
-        <div class="row">
-                <div class="col-12">
-                    <div class="card-body" style="margin-left: 50px;margin-top: -50px;">
                         <p><strong>Pseudo :</strong> {{ app.user.pseudo }}</p>
-                        <p><strong>Email :</strong> {{ app.user.email }}</p>
-                    </div>
+                </div>
+                <div class="col-6 text-end justify-content-start">
+                    <h1>Réglages<i style="padding-left : 15px;" class="fa-solid fa-gear"></i></h1>
+                    
+                    <a class="btn btn-outline-info my-4" href="{{ path('account_edit_password') }}">Modifiez votre mot de passe</a>
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@ class Chapitre
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: manga::class, inversedBy: 'chapitres')]
+    #[ORM\ManyToOne(targetEntity: Manga::class, inversedBy: 'chapitres')]
     #[ORM\JoinColumn(nullable: false)]
     private $manga;
 
@@ -35,12 +35,12 @@ class Chapitre
         return $this->id;
     }
 
-    public function getManga(): ?manga
+    public function getManga(): ?Manga
     {
         return $this->manga;
     }
 
-    public function setManga(?manga $manga): self
+    public function setManga(?Manga $manga): self
     {
         $this->manga = $manga;
 
