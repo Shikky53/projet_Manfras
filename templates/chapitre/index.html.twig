@@ -4,27 +4,30 @@
 
 {% block body %}
     <h1 class="px-3">Vos Chapitres</h1>
-            <div class="container px-3 py-4">
-                <a href="{{ path('chapitre_new') }}" class="px-5 btn btn-outline-info">Créer un nouveau chapitre</a>
-            </div>
+        <div class="container px-3 py-4">
+            <a href="{{ path('chapitre_new') }}" class="px-5 btn btn-outline-info">Créer un nouveau chapitre</a>
+        </div>
             
-            <div class="container py-3">
-                <div class="row justify-content-evenly">
-        <tbody>
+        <div class="container py-3">
+            <div class="row justify-content-evenly">
+
         {% for chapitre in chapitres %}
-            <tr>
-                <td>{{ chapitre.id }}</td>
-                <td>{{ chapitre.numero }}</td>
-                <td>
-                    <a href="{{ path('chapitre_show', {'id': chapitre.id}) }}">show</a>
-                    <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+                <div class="card col-2 pt-5">
+                    <div class="card-header">
+                        <h3>{{ chapitre.numero }}</h3>
+                    </div>
+                    <div class="pb-4 text-center card-body">
+                        <a href="{{ path('scan_index') }}" class="btn btn-outline-info">Voir/Ajouter les pages</a>
+                    </div>
+                    <a class="btn btn-outline-info my-2" href="{{ path('chapitre_edit', {'id': chapitre.id}) }}">Modifier</a>
+                    <a class="btn btn-outline-danger"href="{{ path('chapitre_delete', {'id': chapitre.id}) }}">Supprimer</a>
+                </div>
+            </div>
+        </div>
+
         {% endfor %}
-        </div>
-        </div>
+    <div class="container px-3">
+        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-outline-danger px-4 mt-3">Revenir</a>
+    </div>
+
 {% endblock %}

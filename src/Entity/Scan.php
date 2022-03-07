@@ -13,7 +13,7 @@ class Scan
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: chapitre::class, inversedBy: 'scans')]
+    #[ORM\ManyToOne(targetEntity: Chapitre::class, inversedBy: 'scans')]
     #[ORM\JoinColumn(nullable: false)]
     private $chapitre;
 
@@ -25,12 +25,12 @@ class Scan
         return $this->id;
     }
 
-    public function getChapitre(): ?chapitre
+    public function getChapitre(): ?Chapitre
     {
         return $this->chapitre;
     }
 
-    public function setChapitre(?chapitre $chapitre): self
+    public function setChapitre(?Chapitre $chapitre): self
     {
         $this->chapitre = $chapitre;
 

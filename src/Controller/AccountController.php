@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EditPseudoType;
 use App\Form\EditPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,10 +35,36 @@ class AccountController extends AbstractController
             $em->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('account_edit_password');
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('account/edit_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/account/modifervotrepseudo', name: 'account_edit_pseudo')]
+    public function editPesudo(Request $request, EntityManagerInterface $em)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(EditPseudoType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $user->setPseudo(
+                    $form->get('plainPseudo')->getData()
+            );
+
+            $em->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('account/edit_pseudo.html.twig', [
             'form' => $form->createView(),
         ]);
     }

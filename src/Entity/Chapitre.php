@@ -47,6 +47,7 @@ class Chapitre
         return $this;
     }
 
+
     public function getNumero(): ?int
     {
         return $this->numero;

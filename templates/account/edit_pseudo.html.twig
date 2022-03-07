@@ -7,16 +7,14 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Modifiez votre mot de passe</h3>
+                        <h3>Modifiez votre pseudo</h3>
                     </div>
 
                         {{ form_start(form) }}
-
-                            {{ form_row(form.currentPassword) }}
             
-                            {{ form_row(form.plainPassword.first) }}
+                            {{ form_row(form.plainPseudo.first) }}
 
-                            {{ form_row(form.plainPassword.second) }}
+                            {{ form_row(form.plainPseudo.second) }}
                        
                             <button type="submit" class="btn btn-outline-info mt-3">Validez</button>
                             <a href="{{ path('profile') }}" class="btn btn-outline-danger mt-3">Annulez</a>

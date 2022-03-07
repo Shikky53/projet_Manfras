@@ -186,3 +186,7 @@ footer span {
 .footer {
   margin-top: 13em !important;
 }
+
+.fa-gear:hover {
+  color: white !important;
+}
