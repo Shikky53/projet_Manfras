@@ -7,23 +7,37 @@ use App\Entity\Chapitre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ScanType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('numero',TextType::class,[
-                
-            ])
             ->add('chapitre',EntityType::class,[
                 'required' => false,
                 'label' => 'Numero du chapitre',
                 'class' => Chapitre::class,
-                'placeholder' => '-- Sélectionner le chapitre concernez --',
+                'placeholder' => '-- Sélectionner le chapitre concerné --',
                 'choice_label' => 'numero'
+            ])
+            ->add('numero')
+            ->add('scan',FileType::class,[
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Page',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ajouter la page'
+                    ]),
+                    new File([
+                        'maxSize' => '900k',
+                        'maxSizeMessage' => 'Le poids ne peut dépasser 1mo. Votre fichier est trop lourd.'
+                    ])
+                ]
             ])
         ;
     }

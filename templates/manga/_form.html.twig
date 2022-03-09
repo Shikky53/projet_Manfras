@@ -1,7 +1,7 @@
 {{ form_start(form) }}
 <div class="container py-5">
     <div class="row">
-    {{ form_widget(form) }}
+        {{ form_widget(form) }}
     </div>
     <button class="btn btn-outline-info my-5">{{ button_label|default('Enregistrer') }}</button>
     <a href="{{ path('manga_index') }}" class="btn btn-outline-danger pl-2">Retour à la liste</a>

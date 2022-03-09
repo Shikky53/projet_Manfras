@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Scan;
 use App\Form\ScanType;
+use App\Services\HandleImage;
 use App\Repository\ScanRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/scan')]
 class ScanController extends AbstractController
@@ -23,13 +25,21 @@ class ScanController extends AbstractController
     }
 
     #[Route('/new', name: 'scan_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, HandleImage $handleImage): Response
     {
         $scan = new Scan();
         $form = $this->createForm(ScanType::class, $scan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->get('scan')->getData();
+           
+            if ($file) {
+                $handleImage->save($file, $scan);
+            }
+
             $entityManager->persist($scan);
             $entityManager->flush();
 

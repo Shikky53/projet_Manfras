@@ -20,18 +20,18 @@ class HandleImage
 
     public function save(UploadedFile $file,object $object)
     {
-         //Je recupere le nom du fichier
+        
          $originalFileName = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
-         //Securiser le nom du fichier
+        
          $safeFileName = $this->slugger->slug($originalFileName);
-         //Rendre unique le nom du fichier 
+        
          $uniqFileName = $safeFileName . '-' . md5(uniqid()) . '.' . $file->guessExtension();
-         //Sauvegarder le fichier dans un dossier préconfiguré
+        
          $file->move(
              $this->parameterBag->get('app_images_directory'),
              $uniqFileName
          );
-         //Ensuite je set le chemin de l'image dans ma categorie
+
          $object->setImage('/uploads/images/' . $uniqFileName );
     }
 

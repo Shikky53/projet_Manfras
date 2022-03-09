@@ -20,6 +20,9 @@ class Scan
     #[ORM\Column(type: 'integer')]
     private $numero;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Scan
     public function setNumero(int $numero): self
     {
         $this->numero = $numero;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

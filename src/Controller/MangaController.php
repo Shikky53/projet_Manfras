@@ -33,10 +33,9 @@ class MangaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Recuperer le fichier 
             /** @var UploadedFile $file */
             $file = $form->get('file')->getData();
-            //Verifier que il y a bien un fichier
+
             if ($file) {
                 $handleImage->save($file, $manga);
             }
