@@ -3,44 +3,65 @@
 {% block title %}Manga{% endblock %}
 
 {% block body %}
-    <h1>Manga</h1>
+<div class="row">
+    <div class="col-3">
+        <div class="container pb-3">
+            <div class="py-1 px-2">
+                <div class=" py-4 pr-3">
+                    <p>Nom</p>
+                    <h5>{{ manga.Nom }}</h5>
+            
+                    <div class="py-4 mr-4">
+                        <div class="container">
+                            <img src="{{ manga.Image }}" class="img-fluid" style="border-radius: 10px" alt="">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <p>NomAuth</p>
+                        <h5>{{ manga.nomDuCreateur}}</h5>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ manga.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ manga.Nom }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ manga.Image }}</td>
-            </tr>
-            <tr>
-                <th>NomAuth</th>
-                <td>{{ manga.nomDuCreateur }}</td>
-            </tr>
-            <tr>
-                <th>Dessin</th>
-                <td>{{ manga.Dessin }}</td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td>{{ manga.Genre }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ manga.Statut }}</td>
-            </tr>
-        </tbody>
-    </table>
+                        <p>Dessin</p>
+                        <h5>{{ manga.Dessin }}</h5>
+                
+                        <p>Genre</p>
+                        <h5>{{ manga.Genre }}</h5>
+                    </div>
+                    <div class="mx-2 pt-4">
+                        <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info">Modifier les informations</a>
+                        <a href="{{ path('manga_index') }}" class="btn btn-outline-info my-4">Retour à vos mangas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9 pt-2 border-top border-start border-dark">
+        <div class="row justify-content-between pt-5">
+            <div class="col-5">
+                <a href="{{ path('chapitre_new', {'id' : manga.id}) }}" class="btn btn-outline-info mx-3">Créer un nouveau chapitre</a>
+                
+            </div>
+        </div>
+        <div>
+            <div class="navigation">
+                {{ knp_pagination_render(chapitres) }}
 
-    <a href="{{ path('manga_index') }}">back to list</a>
+                    {% for chapitre in chapitres %}
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>{{ chapitre.numero }}</h5>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{{ path('chapitre_edit',{ 'id' : chapitre.id } ) }}" class="btn btn-info w-100">Modifier</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                {{ knp_pagination_render(chapitres) }}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <a href="{{ path('manga_edit', {'id': manga.id}) }}">edit</a>
-
-    {{ include('manga/_delete_form.html.twig') }}
 {% endblock %}

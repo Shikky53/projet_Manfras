@@ -6,7 +6,9 @@ use App\Entity\Manga;
 use App\Form\MangaType;
 use App\Services\HandleImage;
 use App\Repository\MangaRepository;
+use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,10 +55,22 @@ class MangaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'manga_show', methods: ['GET'])]
-    public function show(Manga $manga): Response
+    public function show(Manga $manga, ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
+    ): Response
     {
+
+        $chapitres = $paginator->paginate(
+             $chapitreRepository->findBy([
+            'manga' => $manga
+        ]),
+            $request->query->getInt('page', 1), /*page number*/
+            8 /*limit per page*/
+        );
+    
+
         return $this->render('manga/show.html.twig', [
             'manga' => $manga,
+            'chapitres' => $chapitres
         ]);
     }
 

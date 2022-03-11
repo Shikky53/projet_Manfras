@@ -15,12 +15,9 @@ body {
     color: white;
   }
 
-  h4 {
+  h4, h5, h6 {
     color: white;
-  }
-
-  .h6 {
-    color: white;
+    font-family: 'lambda';
   }
   
   p , a {

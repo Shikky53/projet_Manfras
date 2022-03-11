@@ -61,12 +61,20 @@ class ScanController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'scan_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Scan $scan, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Scan $scan, EntityManagerInterface $entityManager, HandleImage $handleImage): Response
     {
+        $oldImage = $scan->getImage();
         $form = $this->createForm(ScanType::class, $scan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $file = $form->get('scan')->getData();
+
+            if ($file){
+                $handleImage->edit($file,$scan,$oldImage);
+            }
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('scan_index', [], Response::HTTP_SEE_OTHER);

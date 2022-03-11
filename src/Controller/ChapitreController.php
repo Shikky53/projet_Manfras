@@ -4,12 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Chapitre;
 use App\Form\ChapitreType;
+use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/chapitre')]
 class ChapitreController extends AbstractController
@@ -22,10 +23,12 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'chapitre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'chapitre_new', methods: ['GET', 'POST'])]
+    public function new(int $id,Request $request, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
     {
+        $manga = $mangaRepository->find($id);
         $chapitre = new Chapitre();
+        $chapitre->setManga($manga);
         $form = $this->createForm(ChapitreType::class, $chapitre);
         $form->handleRequest($request);
 
@@ -33,7 +36,7 @@ class ChapitreController extends AbstractController
             $entityManager->persist($chapitre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('chapitre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('manga_show', ['id'=> $manga->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chapitre/new.html.twig', [

@@ -11,7 +11,7 @@
             <div class="container py-3">
                 <div class="row justify-content-evenly">
 
-        {% for manga in mangas %}
+                {% for manga in mangas %}
 
                     <div class="card border-light col-3">
                         <div class="card-body pt-2">
@@ -35,7 +35,7 @@
 
                         </div>
                         <div class="pb-4 text-center">
-                            <a href="{{ path('chapitre_index') }}" class="btn btn-outline-info">Voir/Ajouter un chapitre</a>
+                            <a href="{{ path('manga_show', {'id': manga.id}) }}" class="btn btn-outline-info">Voir/Ajouter un chapitre</a>
                         </div>
                         <div class="card-text text-center d-flex justify-content-around mb-3">
                             <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info">Modifier</a>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
         
-        {% endfor %}
+                {% endfor %}
 
                 </div>
             </div>

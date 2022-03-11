@@ -15,13 +15,13 @@ class ChapitreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('manga',EntityType::class,[
-                'required' => false,
-                'label' => 'Nom du manga',
-                'class' => Manga::class,
-                'placeholder' => '-- Sélectionner le nom du manga --',
-                'choice_label' => 'nom'
-            ])
+            // ->add('manga',EntityType::class,[
+            //     'required' => false,
+            //     'label' => 'Nom du manga',
+            //     'class' => Manga::class,
+            //     'placeholder' => '-- Sélectionner le nom du manga --',
+            //     'choice_label' => 'nom'
+            // ])
             ->add('numero',TextType::class,[
                 'required' => false,
                 'label' => 'Numero du Chapitre',
