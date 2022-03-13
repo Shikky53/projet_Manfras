@@ -7,7 +7,6 @@
 
     {{ include('chapitre/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('chapitre_index') }}">Retour à la liste</a>
+    <a href="{{ path('chapitre_show', {'id' : chapitre.id}) }}" class="btn btn-outline-info">Reotur à la liste</a>
 
-    {{ include('chapitre/_delete_form.html.twig') }}
 {% endblock %}

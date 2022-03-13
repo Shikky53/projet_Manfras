@@ -6,6 +6,7 @@ use App\Entity\Scan;
 use App\Form\ScanType;
 use App\Services\HandleImage;
 use App\Repository\ScanRepository;
+use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +25,12 @@ class ScanController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'scan_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, HandleImage $handleImage): Response
+    #[Route('/new/{id}', name: 'scan_new', methods: ['GET', 'POST'])]
+    public function new(int $id, Request $request, EntityManagerInterface $entityManager, HandleImage $handleImage, ChapitreRepository $chapitreRepository): Response
     {
+        $chapitre = $chapitreRepository->find($id);
         $scan = new Scan();
+        $scan->setChapitre($chapitre);
         $form = $this->createForm(ScanType::class, $scan);
         $form->handleRequest($request);
 
@@ -43,7 +46,7 @@ class ScanController extends AbstractController
             $entityManager->persist($scan);
             $entityManager->flush();
 
-            return $this->redirectToRoute('scan_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('scan/new.html.twig', [

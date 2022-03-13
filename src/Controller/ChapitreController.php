@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Chapitre;
 use App\Form\ChapitreType;
+use App\Repository\ScanRepository;
 use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,10 +48,18 @@ class ChapitreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'chapitre_show', methods: ['GET'])]
-    public function show(Chapitre $chapitre): Response
+    public function show(Chapitre $chapitre, ScanRepository $scanRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $scans = $paginator->paginate(
+            $scanRepository->findBy([
+                'chapitre' => $chapitre
+            ]),
+            $request->query->getInt('page', 1),
+            8
+        );
         return $this->render('chapitre/show.html.twig', [
             'chapitre' => $chapitre,
+            'scans' => $scans
         ]);
     }
 

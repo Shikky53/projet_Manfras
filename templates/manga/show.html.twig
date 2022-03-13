@@ -3,6 +3,7 @@
 {% block title %}Manga{% endblock %}
 
 {% block body %}
+
 <div class="row">
     <div class="col-3">
         <div class="container pb-3">
@@ -38,26 +39,32 @@
         <div class="row justify-content-between pt-5">
             <div class="col-5">
                 <a href="{{ path('chapitre_new', {'id' : manga.id}) }}" class="btn btn-outline-info mx-3">Créer un nouveau chapitre</a>
-                
             </div>
         </div>
-        <div>
-            <div class="navigation">
+        <div class="col-8 px-3">
+            <div class="navigation pt-3">
                 {{ knp_pagination_render(chapitres) }}
-
-                    {% for chapitre in chapitres %}
-                        <div class="col-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>{{ chapitre.numero }}</h5>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="{{ path('chapitre_edit',{ 'id' : chapitre.id } ) }}" class="btn btn-info w-100">Modifier</a>
+            </div>
+                <div class="row">
+                    <div class="container d-flex">
+                        {% for chapitre in chapitres %}
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>{{ chapitre.numero }}</h5>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{ path('chapitre_show',{ 'id' : chapitre.id } ) }}" class="btn btn-outline-info w-100">Consulter/Ajouter des pages</a>
+                                            <a href="{{ path('chapitre_delete',{ 'id' : chapitre.id } ) }}" class="btn btn-outline-danger my-3 w-100">Supprimer</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    
+                        {% endfor %}
+                    </div>
+                </div>
+            <div class="navigation pt-3">
                 {{ knp_pagination_render(chapitres) }}
             </div>
         </div>

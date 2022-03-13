@@ -4,6 +4,6 @@
         {{ form_widget(form) }}
     </div>
     <button class="btn btn-outline-info mt-3">{{ button_label|default('Enregistrer') }}</button>
-    <a href="{{ path('scan_index') }}" class="btn btn-outline-danger mt-3 mx-3">Retour à la liste</a>
+   <a href="{{ app.request.headers.get('referer') }}" class="btn btn-outline-danger mx-3">Revenir</a>
 </div>
 {{ form_end(form) }}

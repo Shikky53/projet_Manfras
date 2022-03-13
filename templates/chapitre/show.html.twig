@@ -3,24 +3,58 @@
 {% block title %}Chapitre{% endblock %}
 
 {% block body %}
-    <h1>Chapitre</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ chapitre.id }}</td>
-            </tr>
-            <tr>
-                <th>Numero</th>
-                <td>{{ chapitre.numero }}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-3">
+        <div class="container pb-3">
+            <div class="py-1 px-2">
+                <div class="py-4 pr-3">
+                    <h5>Chapitre N°{{ chapitre.numero }}</h5>
+                    <div class="mx-2 pt-4">
+                        <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}" class="btn btn-outline-info">Modifier les informations</a>
+                        <a href="{{ path('chapitre_delete', {'id': chapitre.id}) }}" class="btn btn-outline-danger">Supprimer le chapitre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9 pt-2 border-top border-start border-dark">
+        <div class="row justify-content-between pt-5">
+            <div class="col-5">
+                <a href="{{ path('scan_new', {'id' : chapitre.id}) }}" class="btn btn-outline-info mx-3">Ajouter une page</a>
+            </div>
+        </div>
+        <div class="col-8 px-3">
+            <div class="navigation pt-3">
+                {{ knp_pagination_render(scans) }}
+            </div>
+            <div class="row">
+                <div class="container d-flex">
+                    {% for scan in scans %}
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>{{ scan.numero }}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="{{ scan.Image }}" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{ path('scan_edit',{ 'id' : scan.id } ) }}" class="btn btn-outline-info w-100">Modifier</a>
+                                        <a href="{{ path('scan_delete',{ 'id' : scan.id } ) }}" class="btn btn-outline-danger my-3 w-100">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="navigation pt-3">
+                {{ knp_pagination_render(scans) }}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <a href="{{ path('chapitre_index') }}">back to list</a>
-
-    <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}">edit</a>
-
-    {{ include('chapitre/_delete_form.html.twig') }}
 {% endblock %}

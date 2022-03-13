@@ -187,3 +187,22 @@ footer span {
 .fa-gear:hover {
   color: white !important;
 }
+
+.page-item:active {
+  border-color: rgb(13, 195, 236) !important;
+}
+
+.page-link:disabled {
+  color: rgb(196, 196, 196);
+}
+
+.page-link {
+  background: none !important;
+  color: white;
+  border: white 1px solid;
+}
+
+.page-link:hover {
+  color: rgb(13, 195, 236);
+  background: white !important;
+}

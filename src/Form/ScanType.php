@@ -17,13 +17,6 @@ class ScanType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('chapitre',EntityType::class,[
-                'required' => false,
-                'label' => 'Numero du chapitre',
-                'class' => Chapitre::class,
-                'placeholder' => '-- Sélectionner le chapitre concerné --',
-                'choice_label' => 'numero'
-            ])
             ->add('numero')
             ->add('scan',FileType::class,[
                 'mapped' => false,
