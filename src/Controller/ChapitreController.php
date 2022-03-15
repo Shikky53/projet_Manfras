@@ -50,6 +50,7 @@ class ChapitreController extends AbstractController
     #[Route('/{id}', name: 'chapitre_show', methods: ['GET'])]
     public function show(Chapitre $chapitre, ScanRepository $scanRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre],['numero' => 'ASC']);
         $scans = $paginator->paginate(
             $scanRepository->findBy([
                 'chapitre' => $chapitre
@@ -59,7 +60,8 @@ class ChapitreController extends AbstractController
         );
         return $this->render('chapitre/show.html.twig', [
             'chapitre' => $chapitre,
-            'scans' => $scans
+            'scans' => $scans,
+            'firstScan' => $firstScan
         ]);
     }
 

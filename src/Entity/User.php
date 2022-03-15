@@ -35,6 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $pseudo;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $tokenConfirmationEmail;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isConfirmed = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -144,6 +150,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getTokenConfirmationEmail(): ?string
+    {
+        return $this->tokenConfirmationEmail;
+    }
+
+    public function setTokenConfirmationEmail(string $tokenConfirmationEmail): self
+    {
+        $this->tokenConfirmationEmail = $tokenConfirmationEmail;
+
+        return $this;
+    }
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
 
         return $this;
     }

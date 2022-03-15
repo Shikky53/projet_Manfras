@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Manga;
 use App\Form\MangaType;
+use App\Entity\Chapitre;
 use App\Services\HandleImage;
+use App\Repository\ScanRepository;
 use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,22 +57,25 @@ class MangaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'manga_show', methods: ['GET'])]
-    public function show(Manga $manga, ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
+    public function show(Manga $manga, Chapitre $chapitre, ScanRepository $scanRepository,ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
     ): Response
     {
-
+        // dd($chapitre);
+        $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre],['numero' => 'ASC']);
+        // dd($firstScan);
         $chapitres = $paginator->paginate(
              $chapitreRepository->findBy([
             'manga' => $manga
         ]),
             $request->query->getInt('page', 1), /*page number*/
-            8 /*limit per page*/
+            5 /*limit per page*/
         );
     
 
         return $this->render('manga/show.html.twig', [
             'manga' => $manga,
-            'chapitres' => $chapitres
+            'chapitres' => $chapitres,
+            'firstScan' => $firstScan
         ]);
     }
 

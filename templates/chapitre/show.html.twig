@@ -10,8 +10,20 @@
             <div class="py-1 px-2">
                 <div class="py-4 pr-3">
                     <h5>Chapitre N°{{ chapitre.numero }}</h5>
+
+                    {% if firstScan == null %}
+
+                    <div class="container text-center mt-5" style="background : #3131319d">
+                        <p>La 1ere page sera afficher ici</p>
+                    </div>
+                    
+                    {% else %}
+
+                    <img src="{{ firstScan.Image }}" class="img-fluid" style="border-radius : 5px" alt="">
+
+                    {% endif %}
                     <div class="mx-2 pt-4">
-                        <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}" class="btn btn-outline-info">Modifier les informations</a>
+                        <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}" class="btn btn-outline-info my-4">Modifier les informations</a>
                         <a href="{{ path('chapitre_delete', {'id': chapitre.id}) }}" class="btn btn-outline-danger">Supprimer le chapitre</a>
                     </div>
                 </div>
@@ -24,7 +36,7 @@
                 <a href="{{ path('scan_new', {'id' : chapitre.id}) }}" class="btn btn-outline-info mx-3">Ajouter une page</a>
             </div>
         </div>
-        <div class="col-8 px-3">
+        <div class="col-8 px-3 mt-4">
             <div class="navigation pt-3">
                 {{ knp_pagination_render(scans) }}
             </div>
@@ -35,7 +47,7 @@
                             <div class="row">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{ scan.numero }}</h5>
+                                        <h5>Page {{ scan.numero }}</h5>
                                     </div>
                                     <div class="card-body">
                                         <img src="{{ scan.Image }}" class="img-fluid" alt="">
