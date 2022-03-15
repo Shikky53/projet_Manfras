@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -41,6 +42,17 @@ class RegistrationFormType extends AbstractType
                         'maxSizeMessage' => 'Le poids ne peut dépasser 1mo. Votre fichier est trop lourd.'
                     ])
                 ]
+            ])
+            ->add('pseudo', TextType::class,[
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ce pseudo sera visible par les autres utilisateurs'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Le pseudo est obligatoire'
+                    ]),
+                ],
             ])            
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,

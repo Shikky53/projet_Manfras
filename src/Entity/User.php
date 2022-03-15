@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $avatar;
+    private $image;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $pseudo;
@@ -130,14 +130,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getAvatar(): ?string
+    public function getImage(): ?string
     {
-        return $this->avatar;
+        return $this->image;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setImage(string $image): self
     {
-        $this->avatar = $avatar;
+        $this->image = $image;
 
         return $this;
     }
