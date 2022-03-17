@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LostPasswordController!{% endblock %}
+
+{% block body %}
+
+    {{form_start(form) }}
+        <div class="container">
+        <h3>Mot de passe oublié</h3>
+            <div>
+                {{ form_widget(form) }}
+            </div>
+            <div class="py-4">
+                <button type="submit" class="btn btn-outline-info">Envoyer l'email</button>
+            </div>
+        </div>
+        {{form_end(form)}}
+
+{% endblock %}

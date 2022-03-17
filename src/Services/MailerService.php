@@ -44,6 +44,21 @@ class MailerService
 
             $this->mailer->send($email);
     }
+
+    public function sendLostPasswordEmail($user)
+    {
+        $email = (new TemplatedEmail())
+            ->from('noreply@monsite.fr')
+            ->to($user->getEmail())
+            ->subject('Modification de votre ')
+            ->htmlTemplate('email/password_lost.html.twig')
+            ->context([
+                'user' => $user
+            ]);
+        
+        $this->mailer->send($email);
+
+    }
 }
 
 ?>

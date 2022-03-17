@@ -41,6 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isConfirmed = false;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $tokenPasswordLost;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -174,6 +177,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsConfirmed(bool $isConfirmed): self
     {
         $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+
+    public function getTokenPasswordLost(): ?string
+    {
+        return $this->tokenPasswordLost;
+    }
+
+    public function setTokenPasswordLost(?string $tokenPasswordLost): self
+    {
+        $this->tokenPasswordLost = $tokenPasswordLost;
 
         return $this;
     }
