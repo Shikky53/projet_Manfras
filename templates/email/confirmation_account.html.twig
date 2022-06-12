@@ -1,1 +1,23 @@
-<a href={{ url('app_confirm_email',{'token': user.getTokenConfirmationEmail() }) }}>Confirmer votre compte</a>
+<div class="container">
+    <div class="container">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Bienvenue chez manfras.</h2>
+                </div>
+                <div class="container">
+                    <div class="card-body">
+                        <img src="#" alt="">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="py-5">Veuillez cliquez sur le boutton juste en dessous pour valider votre inscription</p>
+                    <a href={{ url('app_confirm_email',{'token': user.getTokenConfirmationEmail() }) }} class="btn btn-outline-info">Confirmer votre compte</a>
+                </div>
+                <div class="footer">
+                    <p class="py-5">Cet email est générer automatiquement <strong>n'y réponder pas.</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

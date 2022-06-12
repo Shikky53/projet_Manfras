@@ -89,4 +89,36 @@ class Chapitre
 
         return $this;
     }
+
+    public function getScansSort() 
+    {
+        $scans = $this->getScans();
+        
+        $scanInfo = [];
+
+        foreach($scans as $scan)
+        {
+            $detail = [
+                'numero' => $scan->getNumero(),
+                'image' => $scan->getImage(),
+            ];
+
+            $scanInfo[] = $detail;
+        }
+        sort($scanInfo);
+
+        return $scanInfo;
+    }
+
+    public function getFirstImageScan()
+    {
+        $scanInfo = $this->getScansSort();
+
+        if(count($scanInfo) > 0)
+        {
+            $image = $scanInfo[0]['image'];
+
+            return $image;
+        }
+    }
 }

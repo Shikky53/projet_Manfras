@@ -57,12 +57,10 @@ class MangaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'manga_show', methods: ['GET'])]
-    public function show(Manga $manga, Chapitre $chapitre, ScanRepository $scanRepository,ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
+    public function show(Manga $manga, ScanRepository $scanRepository,ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
     ): Response
     {
-        // dd($chapitre);
-        $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre],['numero' => 'ASC']);
-        // dd($firstScan);
+        
         $chapitres = $paginator->paginate(
              $chapitreRepository->findBy([
             'manga' => $manga
@@ -75,7 +73,6 @@ class MangaController extends AbstractController
         return $this->render('manga/show.html.twig', [
             'manga' => $manga,
             'chapitres' => $chapitres,
-            'firstScan' => $firstScan
         ]);
     }
 

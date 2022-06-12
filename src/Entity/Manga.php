@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Editeur;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\MangaRepository;

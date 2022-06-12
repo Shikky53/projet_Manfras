@@ -79,7 +79,9 @@ class MangaType extends AbstractType
                 'label' => 'Sélection de l\'éditeur',
                 'class' => Editeur::class,
                 'placeholder' => '-- Choisir un éditeur (facultatif) --',
-                'choice_label' => 'nom'
+                'choice_label' => function ($editeur) {
+                    return strtoupper($editeur->getNom());
+                }
             ])
         ;
     }
