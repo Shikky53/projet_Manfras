@@ -13,8 +13,11 @@
 
             <div class="col">
                 <a href="{{ path('read_scans', {'id':  recentChapitre.id}) }}">
-                    {# <img class="img-fluid" src="{{ recentManga.image }}" alt=""> #}
-                    <h4>{{ recentChapitre.numero }}</h4>
+                    <img class="img-fluid" src="{{ recentChapitre.manga.image }}" alt="">
+                    <div>
+                        <h4 class="mb-0">{{ recentChapitre.manga.nom }}</h4>
+                        <h3 class="pt-1">Chapitre {{ recentChapitre.numero }}</h3>
+                    </div>
                 </a>
             </div>
             
@@ -24,8 +27,8 @@
     </div>
 </div>
 
-<div class="container mt-4 p-5">
-    <div class="my-5 mx-3 p-5">
+<div class="container p-5">
+    <div class="my-1 mx-3 p-5">
         <h2>Les mangas les plus récents</h2>
         <div class="row row-cols-4 my-1 p-5">
 

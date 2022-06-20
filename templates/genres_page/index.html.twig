@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GenresPageController!{% endblock %}
+
+{% block body %}
+
+{% for genre in genres %}
+
+<div class="container">
+    <div class="my-5 mx-3 p-5">
+        <h2>{{ genre }}</h2>
+        <div class="row row-cols-4 my-1 p-5">
+
+        {% for value in mangas %}
+            {% for item in value %}
+                {% if item.genres.name is same as genre %}
+
+                    <div class="col">
+                        <a href="{{ path('details_manga', {'id':  item.getId() }) }}">
+                            <img class="img-fluid" src="{{ item.getImage() }}" alt="">
+                            <div>
+                                <h3 class="pt-1">{{ item.getNom() }}</h3>
+                            </div>
+                        </a>
+                    </div>
+            
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

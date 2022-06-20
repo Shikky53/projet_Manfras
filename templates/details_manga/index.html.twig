@@ -11,8 +11,16 @@
             <ul style="list-style-type: none; font-size: 1.3em" class="p-0 text-white">
                 <li>Scénario : {{ manga.nomDuCreateur }}</li>
                 <li>Dessin : {{ manga.dessin }} </li>
-                <li>Genre : {{ manga.genre }}</li>
+                <li>Genre : {{ manga.genres.name }}</li>
+                {% if manga.editeur is not same as null %}
+
                 <li>Editeur : {{ manga.editeur.nom }}</li>
+
+                {% else %}
+                    
+                <li>Editeur : Aucun</li>    
+
+                {% endif %}
                 <li>Debut : {{ manga.debut | date('d-M-Y') }}</li>
                 <li>Status : {{ manga.statut }}</li>
             </ul>
