@@ -3,10 +3,13 @@
 {% block title %}Edit Chapitre{% endblock %}
 
 {% block body %}
-    <h1>Modifier le chapitre</h1>
+    {% if isScan is same as 's' %}
+        <h1>Ajouter une/des page(s)</h1>
+    {% else %}
+        <h1>Modifier le numéro du chapitre</h1>
+    {% endif %}
 
     {{ include('chapitre/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-
-    <a href="{{ path('chapitre_show', {'id' : chapitre.id}) }}" class="btn btn-outline-info">Reotur à la liste</a>
+    <a href="{{ path('chapitre_show', {'id' : chapitre.id}) }}" class="btn btn-outline-info">Retour à la liste</a>
 
 {% endblock %}

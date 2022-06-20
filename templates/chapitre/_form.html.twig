@@ -1,13 +1,22 @@
-{{ form_start(form) }}
 
 <div class="container py-5">
     <div class="row">
 
-    {{ form_widget(form) }}
+    {% if isScan is not same as 's' %}
+        {{ form_start(numeroForm) }}
+        {{ form_widget(numeroForm) }}
+    {% else %}
+        {{ form_start(imageForm) }}
+        {{ form_widget(imageForm) }}
+    {% endif %}
 
     </div>
     <button class="btn btn-outline-info">{{ button_label|default('Enregistrer') }}</button>
     <a href="{{ app.request.headers.get('referer') }}" class="btn btn-outline-danger mx-3">Retour</a>
 </div>
 
-{{ form_end(form) }}
+{% if isScan is not same as 's' %}
+    {{ form_end(numeroForm) }}
+{% else %}
+    {{ form_end(imageForm) }}
+{% endif %}

@@ -17,8 +17,8 @@ class Scan
     #[ORM\JoinColumn(nullable: false)]
     private $chapitre;
 
-    #[ORM\Column(type: 'integer')]
-    private $numero;
+    // #[ORM\Column(type: 'integer')]
+    // private $numero;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
@@ -40,17 +40,17 @@ class Scan
         return $this;
     }
 
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
+    // public function getNumero(): ?int
+    // {
+    //     return $this->numero;
+    // }
 
-    public function setNumero(int $numero): self
-    {
-        $this->numero = $numero;
+    // public function setNumero(int $numero): self
+    // {
+    //     $this->numero = $numero;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getImage(): ?string
     {

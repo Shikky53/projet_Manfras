@@ -25,6 +25,9 @@ class Chapitre
     #[ORM\OneToMany(mappedBy: 'chapitre', targetEntity: Scan::class)]
     private $scans;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private $debut;
+
     public function __construct()
     {
         $this->scans = new ArrayCollection();
@@ -46,7 +49,6 @@ class Chapitre
 
         return $this;
     }
-
 
     public function getNumero(): ?int
     {
@@ -99,7 +101,6 @@ class Chapitre
         foreach($scans as $scan)
         {
             $detail = [
-                'numero' => $scan->getNumero(),
                 'image' => $scan->getImage(),
             ];
 
@@ -120,5 +121,17 @@ class Chapitre
 
             return $image;
         }
+    }
+
+    public function getDebut(): ?\DateTimeInterface
+    {
+        return $this->debut;
+    }
+
+    public function setDebut(\DateTimeInterface $debut): self
+    {
+        $this->debut = $debut;
+
+        return $this;
     }
 }

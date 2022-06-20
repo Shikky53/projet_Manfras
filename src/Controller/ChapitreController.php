@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Scan;
 use App\Entity\Chapitre;
+use App\Form\ImagesType;
+use App\Form\NumeroType;
 use App\Form\ChapitreType;
+use App\Services\HandleImage;
 use App\Repository\ScanRepository;
 use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
@@ -12,6 +16,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/chapitre')]
@@ -50,14 +56,15 @@ class ChapitreController extends AbstractController
     #[Route('/{id}', name: 'chapitre_show', methods: ['GET'])]
     public function show(Chapitre $chapitre, ScanRepository $scanRepository,PaginatorInterface $paginator, Request $request): Response
     {
-        $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre],['numero' => 'ASC']);
+        $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre]);
         $scans = $paginator->paginate(
             $scanRepository->findBy([
                 'chapitre' => $chapitre
             ]),
             $request->query->getInt('page', 1),
-            8
+            5
         );
+
         return $this->render('chapitre/show.html.twig', [
             'chapitre' => $chapitre,
             'scans' => $scans,
@@ -65,21 +72,48 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/{isScan}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
+    public function edit(int $id, string $isScan, ChapitreRepository $chapitreRepository, Request $request, HandleImage $handleImage, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ChapitreType::class, $chapitre);
-        $form->handleRequest($request);
+        $chapitre = $chapitreRepository->find($id);
+        $numeroForm = $this->createForm(NumeroType::class);
+        $imageForm = $this->createForm(ImagesType::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $numeroForm->handleRequest($request);
+        if ($numeroForm->isSubmitted() && $numeroForm->isValid()) {
+            $numero = $numeroForm->get('numero')->getData();
+            $chapitre->setNumero($numero);
+            $entityManager->persist($chapitre);
+            $entityManager->flush();
+            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
+        }
+        //Viveleback : mdp teamviewer
+        $imageForm->handleRequest($request);
+        if ($imageForm->isSubmitted() && $imageForm->isValid()) {
+            
+            /** @var UploadedFile $files */
+            $files = $imageForm->get('image')->getData();
+            
+            foreach ($files as $file) {
+                if ($file) {
+                    $scan = new Scan();
+                    $handleImage->save($file, $scan);
+                    $chapitre->addScan($scan);
+                    $entityManager->persist($scan);
+                }
+            }
+            
+            $entityManager->persist($chapitre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('chapitre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chapitre/edit.html.twig', [
             'chapitre' => $chapitre,
-            'form' => $form,
+            'isScan' => $isScan,
+            'imageForm' => $imageForm,
+            'numeroForm' => $numeroForm,
         ]);
     }
 

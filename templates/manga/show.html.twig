@@ -24,8 +24,17 @@
                         <h5>{{ manga.dessin }}</h5>
                 
                         <p>Genre</p>
-                        <h5>{{ manga.genre }}</h5>
+                        <h5>{{ manga.genres.getName() }}</h5>
+                        
+                        {% if manga.editeur is same as null %}
+
+                        <h5>Vous ne posséder aucun éditeur</h5>
+
+                        {% else %}
+                            
                         <h5>{{ manga.editeur.getNom()}}</h5>
+
+                        {% endif %}
                     </div>
                     <div class="mx-2 pt-4">
                         <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info">Modifier les informations</a>

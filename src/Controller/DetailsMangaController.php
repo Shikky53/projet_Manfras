@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DetailsMangaController extends AbstractController
 {
-    #[Route('/details/manga/{id}', name: 'details_manga', methods: ['GET'])]
+    #[Route('/details/manga/{id}', name: 'details_manga')]
     public function index(Manga $manga, ChapitreRepository $chapitreRepository): Response
     {
         $chapitres = $chapitreRepository->findBy([

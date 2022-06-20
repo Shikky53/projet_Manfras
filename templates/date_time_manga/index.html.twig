@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NewsMangaController!{% endblock %}
+
+{% block body %}
+
+<div class="container p-5">
+    <div class="my-5 mx-3 p-5">
+        <h2>Les chapitres les plus récents</h2>
+        <div class="row row-cols-4 my-1 p-5">
+
+        {% for recentChapitre in recentsChapitres %}
+
+            <div class="col">
+                <a href="{{ path('read_scans', {'id':  recentChapitre.id}) }}">
+                    {# <img class="img-fluid" src="{{ recentManga.image }}" alt=""> #}
+                    <h4>{{ recentChapitre.numero }}</h4>
+                </a>
+            </div>
+            
+        {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 p-5">
+    <div class="my-5 mx-3 p-5">
+        <h2>Les mangas les plus récents</h2>
+        <div class="row row-cols-4 my-1 p-5">
+
+        {% for recentManga in recentsMangas %}
+
+            <div class="col">
+                <a href="{{ path('details_manga', {'id':  recentManga.id}) }}">
+                    <img class="img-fluid" src="{{ recentManga.image }}" alt="">
+                    <h4>{{ recentManga.nom }}</h4>
+                </a>
+            </div>
+            
+        {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

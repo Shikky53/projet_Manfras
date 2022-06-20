@@ -18,7 +18,8 @@ class Manga
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Editeur::class, inversedBy: 'mangas')]
+    #[ORM\ManyToOne(targetEntity: Editeur::class, inversedBy: 'mangas',)]
+    #[ORM\JoinColumn(nullable: true)]
     private $editeur;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -34,9 +35,6 @@ class Manga
     private $dessin;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $genre;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private $statut;
 
     #[ORM\OneToMany(mappedBy: 'manga', targetEntity: Chapitre::class)]
@@ -47,6 +45,9 @@ class Manga
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $debut;
+
+    #[ORM\ManyToOne(targetEntity: Genres::class, inversedBy: 'manga')]
+    private $genres;
 
     #[ORM\PrePersist]
     public function prePersist()
@@ -67,12 +68,12 @@ class Manga
         return $this->id;
     }
 
-    public function getEditeur(): ?editeur
+    public function getEditeur(): ?Editeur
     {
         return $this->editeur;
     }
 
-    public function setEditeur(?editeur $editeur): self
+    public function setEditeur(?Editeur $editeur): self
     {
         $this->editeur = $editeur;
 
@@ -123,18 +124,6 @@ class Manga
     public function setDessin(string $dessin): self
     {
         $this->dessin = $dessin;
-
-        return $this;
-    }
-
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(string $genre): self
-    {
-        $this->genre = $genre;
 
         return $this;
     }
@@ -201,6 +190,18 @@ class Manga
     public function setDebut(\DateTimeImmutable $debut): self
     {
         $this->debut = $debut;
+
+        return $this;
+    }
+
+    public function getGenres(): ?Genres
+    {
+        return $this->genres;
+    }
+
+    public function setGenres(?Genres $genres): self
+    {
+        $this->genres = $genres;
 
         return $this;
     }

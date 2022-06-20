@@ -32,8 +32,6 @@ class HomeController extends AbstractController
             // dump('Voici le noms de tout mes editeurs',$this->filterByEditeur($AllEditeursNom[$i],$mangas,$editeurRepository));
 
             array_push($AllMangas, $filteredMangas);
-
-            dump('Ceci sont tout mes Mangas  Bordel' , $AllMangas);
         }
 
         return $this->render('home/index.html.twig', [
@@ -51,11 +49,17 @@ class HomeController extends AbstractController
         // dd($editeurRepository->findAll());
         
         for ($i=0; $i < count($mangas); $i++) {  
+            
+            if ($mangas[$i]->getEditeur() != null) {
 
-            $currentManga = $mangas[$i]->getEditeur()->getNom();
+                $currentManga = $mangas[$i]->getEditeur()->getNom();
 
-            if ($currentManga === $editeurNom) 
-                array_push($editeur, $mangas[$i]);
+                    if ($currentManga === $editeurNom) 
+                    {
+                        array_push($editeur, $mangas[$i]);
+                    }
+            }
+
         }
 
         return $editeur;

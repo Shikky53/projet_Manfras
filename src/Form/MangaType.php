@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Manga;
 use App\Entity\Editeur;
+use App\Entity\Genres;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -60,12 +61,14 @@ class MangaType extends AbstractType
                     'placeholder' => "Synopsis du manga..."
                 ]
             ] )
-            ->add('genre', TextType::class,[
+            ->add('genres',EntityType::class,[
                 'required' => false,
-                'label' => 'Genre',
-                'attr' => [
-                    'placeholder' => "Donnez le genre de votre manga..."
-                ]
+                'label' => 'Sélection du genre du manga',
+                'class' => Genres::class,
+                'placeholder' => '-- Choisir un genre --',
+                'choice_label' => function ($genres) {
+                    return strtoupper($genres->getName());
+                }
             ])
             ->add('statut',TextType::class,[
                 'required' => false,

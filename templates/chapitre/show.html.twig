@@ -23,7 +23,7 @@
 
                     {% endif %}
                     <div class="mx-2 pt-4">
-                        <a href="{{ path('chapitre_edit', {'id': chapitre.id}) }}" class="btn btn-outline-info my-4">Modifier les informations</a>
+                        <a href="{{ path('chapitre_edit', {'id': chapitre.id, 'isScan': 'n'}) }}" class="btn btn-outline-info my-4">Modifier le numéro du chapitre</a>
                         <a href="{{ path('chapitre_delete', {'id': chapitre.id}) }}" class="btn btn-outline-danger">Supprimer le chapitre</a>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
     <div class="col-9 pt-2 border-top border-start border-dark">
         <div class="row justify-content-between pt-5">
             <div class="col-5">
-                <a href="{{ path('scan_new', {'id' : chapitre.id}) }}" class="btn btn-outline-info mx-3">Ajouter une page</a>
+                <a href="{{ path('chapitre_edit', {'id' : chapitre.id,  'isScan': 's'}) }}" type="button" class="btn btn-outline-info mx-3">Ajouter une/des page(s)</a>
             </div>
         </div>
         <div class="col-8 px-3 mt-4">
@@ -46,9 +46,6 @@
                         <div class="col-3">
                             <div class="row">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h5>Page {{ scan.numero }}</h5>
-                                    </div>
                                     <div class="card-body">
                                         <img src="{{ scan.Image }}" class="img-fluid" alt="">
                                     </div>

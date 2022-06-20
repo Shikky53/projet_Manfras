@@ -18,9 +18,8 @@ class HandleImage
         $this->parameterBag = $parameterBag;
     }
 
-    public function save(UploadedFile $file,object $object)
-    {
-        
+    public function save(UploadedFile $file, object $object)
+    {   
          $originalFileName = pathinfo($file->getClientOriginalName(),PATHINFO_FILENAME);
         
          $safeFileName = $this->slugger->slug($originalFileName);
