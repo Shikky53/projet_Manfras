@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Editeur;
 use App\Entity\Manga;
+use App\Entity\Editeur;
 use App\Repository\MangaRepository;
 use App\Repository\EditeurRepository;
+use App\Repository\ChapitreRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,12 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(MangaRepository $mangaRepository, EditeurRepository $editeurRepository): Response
+    public function index(MangaRepository $mangaRepository, EditeurRepository $editeurRepository, ChapitreRepository $chapitreRepository): Response
     {
         $AllMangas = [];
         $AllEditeursNom = [];
         $mangas = $mangaRepository->findAll();
         $editeur = $editeurRepository->findAll('nom');
+        $recentsChapitres = $chapitreRepository->findBy([],['debut' => 'DESC']);
         
         for ($i=0; $i < count($editeur); $i++) { 
             array_push($AllEditeursNom, $editeur[$i]->getNom());
@@ -37,6 +39,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'mangas' => $AllMangas,
             'editeurs' => $AllEditeursNom,
+            'recentsChapitres' => $recentsChapitres
         ]);
     }
 

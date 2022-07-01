@@ -108,6 +108,11 @@ body {
   .allSection button:hover {
     background-color: #3131319d !important;
   }
+  
+  .section-img {
+    height: 18.5em !important;
+    width: auto; 
+  }
 
   /***************** Bannières *****************/
 

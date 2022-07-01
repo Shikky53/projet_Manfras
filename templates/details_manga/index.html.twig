@@ -43,7 +43,7 @@
             </div>
         {% else %}
             <div class="bg-info bg-opacity-50 w-50 py-2 ps-3 mt-2">
-                <a href=""><h5 class="m-0">Chapitre {{ chapitre.numero }}</h5></a>
+                <a href="{{ path('read_scans', {'id': chapitre.id , 'cid'}) }}"><h5 class="m-0">Chapitre {{ chapitre.numero }}</h5></a>
             </div>
         {% endif %}
     {% endfor %}
