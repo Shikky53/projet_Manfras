@@ -1,56 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReadScansController!{% endblock %}
+{% block title %}Hello ReadScansController!
+{% endblock %}
 
 {% block body %}
 
-<div class="container pt-5 mt-5 d-flex justify-content-evenly">
-    <div class="dropdown" style="width: 55%; margin-left: 12rem !important">
-        <button class="btn btn-dark border-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded "true">
-           Liste des chapitres
-        </button>
-        <ul class="dropdown-menu w-100 bg-dark" aria-labelledby="dropdownMenuButton1">
-        {% for chapitre in chapitresDropdown %}
-          
-            <li><a class="dropdown-item text-light" href="{{ path('read_scans', {'id' : chapitre.id}) }}"> Chapitre N°{{chapitre.numero}} </a></li>
+	<div class="container pt-5 mt-5 d-flex justify-content-evenly">
+		<div class="dropdown" style="width: 55%;">
+			<button class="btn btn-dark border-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded "true">
+				Liste des chapitres
+			</button>
+			<ul class="dropdown-menu w-100 bg-dark" aria-labelledby="dropdownMenuButton1">
 
-        {% endfor %}
-        </ul>
-    </div>
-    <div class="dropdown w-20">
-        <button class="btn btn-dark border-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Page 1/1
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-    </div>
-</div>
-<div class="container mt-5 pt-3">
-  <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
-    <div class="carousel-inner">
-      {% for scan in scans %}
-      <div class="item">
-        
-          <div class="w-100 d-flex justify-content-center">
-              <img src="{{ scan.image }}" class="img-fluid py-2" alt="200%x280" style="height: 47em !important;">
-          </div>
+				{% for chapitre in chapitresDropdown %}
 
-      </div>
-      {% endfor %}
-      <div class="item active"></div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev" onmouseover="this.style.background='#3131319d'" onmouseout="">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next" onmouseover="this.style.background='#3131319d'" onmouseout="">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+					{% if app.request.attributes.get('id') is same as chapitre.id %}
+
+						<li>
+							<a class="dropdown-item disabled text-secondary bg-light" href="{{ path('read_scans', {'id' : chapitre.id}) }}">
+								Chapitre N°{{chapitre.numero}}
+							</a>
+						</li>
+
+					{% else %}
+
+						<li>
+							<a class="dropdown-item text-light" href="{{ path('read_scans', {'id' : chapitre.id}) }}">
+								Chapitre N°{{chapitre.numero}}
+							</a>
+						</li>
+
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container mt-5 pt-3">
+		{% for scan in scans %}
+
+			<div class="item">
+				<div class="w-100 d-flex justify-content-center">
+					<img src="{{ scan.image }}" class="img-fluid py-2" alt="200%x280" style="height: 48em !important;">
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+
+<div class="container pt-2 mt-5 d-flex justify-content-evenly">
+	<div class="dropdown" style="width: 55%;">
+		<button class="btn btn-dark border-primary dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded "true">
+			Liste des chapitres
+		</button>
+		<ul class="dropdown-menu w-100 bg-dark" aria-labelledby="dropdownMenuButton1">
+
+			{% for chapitre in chapitresDropdown %}
+
+				{% if app.request.attributes.get('id') is same as chapitre.id %}
+
+					<li>
+						<a class="dropdown-item disabled text-secondary bg-light" href="{{ path('read_scans', {'id' : chapitre.id}) }}">
+							Chapitre N°{{chapitre.numero}}
+						</a>
+					</li>
+
+				{% else %}
+
+					<li>
+						<a class="dropdown-item text-light" href="{{ path('read_scans', {'id' : chapitre.id}) }}">
+							Chapitre N°{{chapitre.numero}}
+						</a>
+					</li>
+
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
 </div>
 
 {% endblock %}

@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DateTimeMangaController extends AbstractController
 {
-    #[Route('/new/manga', name: 'date_time_manga')]
+    #[Route('/news/manga', name: 'date_time_manga')]
     public function index(MangaRepository $mangaRepository, ChapitreRepository $chapitreRepository): Response
     {
         $recentsMangas = $mangaRepository->findBy([],['debut' => 'DESC']);
