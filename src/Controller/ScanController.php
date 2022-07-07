@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/scan')]
 class ScanController extends AbstractController
@@ -89,14 +90,17 @@ class ScanController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'scan_delete', methods: ['POST'])]
-    public function delete(Request $request, Scan $scan, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'scan_delete', methods: ['GET', 'POST'])]
+    public function delete(int $id, Request $request, Scan $scan, EntityManagerInterface $entityManager, ChapitreRepository $chapitreRepository): Response
     {
+        $chapitre = $chapitreRepository->find($id);
+
         if ($this->isCsrfTokenValid('delete'.$scan->getId(), $request->request->get('_token'))) {
             $entityManager->remove($scan);
             $entityManager->flush();
+            
+            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->redirectToRoute('scan_index', [], Response::HTTP_SEE_OTHER);
+        
     }
 }

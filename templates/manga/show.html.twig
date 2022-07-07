@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manga{% endblock %}
+{% block title %}{{ manga.nom }} modification{% endblock %}
 
 {% block body %}
 
@@ -47,7 +47,7 @@
     <div class="col-9 pt-2 border-top border-start border-dark">
         <div class="row pt-5">
             <div class="col-11 d-flex justify-content-between">
-                <a href="{{ path('chapitre_new', {'id' : manga.id}) }}" class="btn btn-outline-info my-4 mx-3">Créer un nouveau chapitre</a>
+                <a href="{{ path('chapitre_new', {'id' : manga.id, 'isScan' : 'c'}) }}" class="btn btn-outline-info my-4 mx-3">Créer un nouveau chapitre</a>
                 <a href="{{ path('manga_index') }}" class="btn btn-outline-info my-4">Retour à vos mangas</a>
             </div>
         </div>
@@ -66,11 +66,14 @@
                                         </div>
                                       
                                         <div class="card-body">
-                                            <img src="{{ chapitre.firstImageScan }}" alt="" class="img-fluid">
+                                            <img style="height: 13em !important" src="{{ chapitre.firstImageScan }}" alt="" class="img-fluid w-100">
                                         </div>
                                         <div class="card-footer">
-                                            <a href="{{ path('chapitre_show',{ 'id' : chapitre.id } ) }}" class="btn btn-outline-info w-100">Consulter/Ajouter des pages</a>
-                                            <a href="{{ path('chapitre_delete',{ 'id' : chapitre.id } ) }}" class="btn btn-outline-danger my-3 w-100">Supprimer</a>
+                                            <a href="{{ path('chapitre_show',{ 'id' : chapitre.id } ) }}" class="btn btn-outline-info w-100 mb-2">Consulter/Ajouter des pages</a>
+                                            <form method="post" action="{{ path('chapitre_delete', {'id': chapitre.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer ce chapitre ?">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chapitre.id) }}">
+                                                <button class="btn btn-outline-danger w-100">Supprimer</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

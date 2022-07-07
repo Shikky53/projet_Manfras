@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DetailsMangaController!{% endblock %}
+{% block title %} Details de l'oeuvre {% endblock %}
 
 {% block body %}
 <div class="container d-flex">
@@ -27,8 +27,13 @@
         </div>
     </div>
     <div class="d-flex align-items-end justify-content-evenly w-50">
-        <a style="width: 40%" class="btn btn-outline-info p-2" href="{{ path('read_scans', {'id' : premierChapitre.id }) }}">Lire le premier chapitre</a>
-        <a style="width: 40%" class="btn btn-outline-info p-2" href="{{ path('read_scans', {'id' : dernierChapitre.id }) }}">Lire le dernier chapitre</a>
+        {% if chapitres is empty %}
+            <a style="width: 40%" class="btn btn-outline-info p-2" href="">Lire le premier chapitre</a>
+            <a style="width: 40%" class="btn btn-outline-info p-2" href="">Lire le dernier chapitre</a>
+        {% else %}
+            <a style="width: 40%" class="btn btn-outline-info p-2" href="{{ path('read_scans', {'id' : premierChapitre.id }) }}">Lire le premier chapitre</a>
+            <a style="width: 40%" class="btn btn-outline-info p-2" href="{{ path('read_scans', {'id' : dernierChapitre.id }) }}">Lire le dernier chapitre</a>
+        {% endif %}
     </div>
 </div>
 <div class="container mt-4">
@@ -37,7 +42,7 @@
 </div>
 <div class="container mt-4">
     {% for chapitre in chapitres %}
-        {% if chapitre is same as null %}
+        {% if chapitre is null %}
             <div>
                 <p>Ce manga ne contient pas encore de chapitre revenez plus tard</p>
             </div>

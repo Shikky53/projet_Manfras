@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ChapitreRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChapitreRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ChapitreRepository::class)]
 class Chapitre
@@ -26,7 +27,17 @@ class Chapitre
     private $scans;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $debut;
+    private $creation;
+
+    #[ORM\PrePersist]
+    public function prePersist()
+    {
+        if(empty($this->creation))
+        {
+            $this->creation = new DateTimeImmutable();
+        }
+    }
+
 
     public function __construct()
     {
@@ -123,14 +134,14 @@ class Chapitre
         }
     }
 
-    public function getDebut(): ?\DateTimeInterface
+    public function getCreation(): ?\DateTimeInterface
     {
-        return $this->debut;
+        return $this->creation;
     }
 
-    public function setDebut(\DateTimeInterface $debut): self
+    public function setCreation(\DateTimeInterface $creation): self
     {
-        $this->debut = $debut;
+        $this->creation = $creation;
 
         return $this;
     }

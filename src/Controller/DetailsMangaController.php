@@ -21,9 +21,16 @@ class DetailsMangaController extends AbstractController
             'manga' => $manga
         ]);
 
-        $premierChapitre = array_values($chapitres)[0];
-
-        $dernierChapitre = end($chapitres);
+        if($chapitres != null)
+        {
+            $premierChapitre = array_values($chapitres)[0];
+            $dernierChapitre = end($chapitres);
+        }
+        else
+        {
+            $premierChapitre = "";
+            $dernierChapitre = "";
+        }
 
         return $this->render('details_manga/index.html.twig', [
             'manga' => $manga,

@@ -2,7 +2,10 @@
 <div class="container py-5">
     <div class="row">
 
-    {% if isScan is not same as 's' %}
+    {% if isScan is same as 'c' %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {% elseif isScan is not same as 's' %}
         {{ form_start(numeroForm) }}
         {{ form_widget(numeroForm) }}
     {% else %}
@@ -15,8 +18,10 @@
     <a href="{{ app.request.headers.get('referer') }}" class="btn btn-outline-danger mx-3">Retour</a>
 </div>
 
-{% if isScan is not same as 's' %}
-    {{ form_end(numeroForm) }}
-{% else %}
-    {{ form_end(imageForm) }}
-{% endif %}
+    {% if isScan is same as 'c' %}
+        {{ form_end(form) }}
+    {% elseif isScan is not same as 's' %}
+        {{ form_end(numeroForm) }}
+    {% else %}
+        {{ form_end(imageForm) }}
+    {% endif %}

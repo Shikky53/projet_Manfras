@@ -20,12 +20,12 @@ class NumeroType extends AbstractType
     {
         $builder
         ->add('numero', TextType::class, [
-                            'label' => 'Le numero de votre chapitre',
-                            'required' => false,
-                            'attr' => [
-                                'placeholder' => 'ex: \'42\''
-                            ],
-                        ])
+            'label' => 'Le numero de votre chapitre',
+            'required' => false,
+            'attr' => [
+                    'placeholder' => 'ex: \'42\''
+                ],
+            ])
         ;
     }
 

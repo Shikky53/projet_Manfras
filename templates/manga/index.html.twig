@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manga index{% endblock %}
+{% block title %} Vos Manga {% endblock %}
 
 {% block body %}
             <h1 class="px-3">Vos Mangas</h1>
@@ -18,7 +18,7 @@
                             <div class="card-title pl-4 pt-3">
                                 <h4>{{manga.nom}}</h4>
                             </div>
-                            <img style="border-radius : 10px" class="img-fluid" src="{{ manga.image }}" alt="">
+                            <img style="border-radius : 10px; height: 23.5em !important" class="img-fluid w-100" src="{{ manga.image }}" alt="">
                             <p class="pt-3">Date de création : {{manga.debut | date("d-M-Y")}}</p>
                         </div>
                         <div class="pb-4 text-center">
@@ -39,7 +39,10 @@
                         </div>
                         <div class="card-text text-center d-flex justify-content-around mb-3">
                             <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info">Modifier</a>
-                            <a href="{{ path('manga_delete', {'id': manga.id}) }}" class="btn btn-outline-danger">Supprimer</a>
+                            <form method="post" action="{{ path('manga_delete', {'id': manga.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer ce manga ?">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ manga.id) }}">
+                                <button class="btn btn-outline-danger w-100">Supprimer</button>
+                            </form>
                         </div>
                     </div>
         

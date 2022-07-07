@@ -57,9 +57,10 @@ class MangaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'manga_show', methods: ['GET'])]
-    public function show(Manga $manga, ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
+    public function show(int $id, MangaRepository $mangaRepository, ChapitreRepository $chapitreRepository,PaginatorInterface $paginator, Request $request
     ): Response
     {
+        $manga = $mangaRepository->find($id);
         
         $chapitres = $paginator->paginate(
              $chapitreRepository->findBy([

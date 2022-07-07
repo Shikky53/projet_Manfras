@@ -20,7 +20,7 @@ class HomeController extends AbstractController
         $AllEditeursNom = [];
         $mangas = $mangaRepository->findAll();
         $editeur = $editeurRepository->findAll('nom');
-        $recentsChapitres = $chapitreRepository->findBy([],['debut' => 'DESC']);
+        $recentsChapitres = $chapitreRepository->findBy([],['creation' => 'DESC']);
         
         for ($i=0; $i < count($editeur); $i++) { 
             array_push($AllEditeursNom, $editeur[$i]->getNom());

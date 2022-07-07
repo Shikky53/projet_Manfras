@@ -14,7 +14,7 @@ class DateTimeMangaController extends AbstractController
     public function index(MangaRepository $mangaRepository, ChapitreRepository $chapitreRepository): Response
     {
         $recentsMangas = $mangaRepository->findBy([],['debut' => 'DESC']);
-        $recentsChapitres = $chapitreRepository->findBy([],['debut' => 'DESC']);
+        $recentsChapitres = $chapitreRepository->findBy([],['creation' => 'DESC']);
 
         return $this->render('date_time_manga/index.html.twig', [
             'recentsMangas' => $recentsMangas,

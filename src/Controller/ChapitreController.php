@@ -31,13 +31,13 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{id}', name: 'chapitre_new', methods: ['GET', 'POST'])]
-    public function new(int $id,Request $request, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
+    #[Route('{id}/{isScan}/new', name: 'chapitre_new', methods: ['GET', 'POST'])]
+    public function new(int $id, string $isScan, Request $request, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
     {
         $manga = $mangaRepository->find($id);
         $chapitre = new Chapitre();
         $chapitre->setManga($manga);
-        $form = $this->createForm(ChapitreType::class, $chapitre);
+        $form = $this->createForm(NumeroType::class, $chapitre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -50,6 +50,7 @@ class ChapitreController extends AbstractController
         return $this->renderForm('chapitre/new.html.twig', [
             'chapitre' => $chapitre,
             'form' => $form,
+            'isScan' => $isScan
         ]);
     }
 
@@ -118,13 +119,16 @@ class ChapitreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'chapitre_delete', methods: ['POST'])]
-    public function delete(Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager): Response
+    public function delete(int $id, Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
     {
+        $manga = $mangaRepository->find($id);
+
         if ($this->isCsrfTokenValid('delete'.$chapitre->getId(), $request->request->get('_token'))) {
             $entityManager->remove($chapitre);
             $entityManager->flush();
+
+            return $this->redirectToRoute('manga_show', ['id' => $manga->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->redirectToRoute('chapitre_index', [], Response::HTTP_SEE_OTHER);
     }
 }
