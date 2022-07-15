@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminController extends AbstractController
+class ComingSoonController extends AbstractController
 {
-    #[Route('/admin', name: 'admin')]
+    #[Route('/coming/soon', name: 'coming_soon')]
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+        return $this->render('coming_soon/index.html.twig', [
+            'controller_name' => 'ComingSoonController',
         ]);
     }
 }

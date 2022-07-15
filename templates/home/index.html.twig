@@ -15,11 +15,11 @@
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
-				<img src="./Assets/Bannière/visuel_stray_dog.jpg" class="d-block w-100" alt="..."/>
+				<img src="./Assets/Bannière/visual_radiant_3.jpg" class="d-block w-100" alt="..."/>
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 			<div class="carousel-item">
-				<img src="./Assets/Bannière/visuel_stray_dog.jpg" class="d-block w-100" alt="..."/>
+				<img src="./Assets/Bannière/dreamland-visual-2.jpg" class="d-block w-100" alt="..."/>
 				<div class="carousel-caption d-none d-md-block"></div>
 			</div>
 		</div>
@@ -59,19 +59,19 @@
 
 {% for editeur in editeurs %}
 
-	<div class="container p-5">
-		<div class="px-5 py-2">
+	<div class="container py-sm-2 p-lg-5">
+		<div class="px-sm-1 px-lg-5 py-2">
 			<h2>{{ editeur }}</h2>
-			<div class="row row-cols-4 my-1 p-5">
+			<div class="row row-cols-4 my-1 p-lg-5 py-sm-3">
 				{% for value in mangas %}
 
 					{% for item in value %}
 
 						{% if item.editeur.nom is same as editeur %}
 						
-							<div class="col">
+							<div class="col-sm-6 py-sm-3">
 								<a href="{{ path('details_manga', {'id': item.getId()  }) }}">
-									<img class="img-fluid section-img" src={{ item.getImage() }}>
+									<img class="img-fluid home-img" src={{ item.getImage() }}>
 									<div>
 										<h3 class="mb-0" style="font-size: 1.3em !important">{{ item.getNom() }}</h4>
 									</div>

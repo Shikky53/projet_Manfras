@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Bientôt {% endblock %}
+
+{% block body %}
+
+	<div class="d-lg-flex mt-5">
+		<div class="w-lg-50 w-sm-100 text-center border-primary p-4 d-flex flex-column align-items-center">
+			<h1 class="mt-5 pt-5" style="text-decoration: none;">Cette page n'est pas encore disponible</h1>
+			<h6 class="my-1 p-5">Cette page est en travaux pour retourner à l'accueil veuillez cliquez sur le logo
+				<br>
+				ou cliquez sur ce bouton</h6>
+			<a href="{{ path('home') }}" class="btn btn-outline-info w-50">Accueil</a>
+		</div>
+		<img class="w-50 d-sm-none d-lg-inline" src="{{ asset('Assets/Bannière/stray-dog-visual-2.jpg') }}" alt="">
+	</div>
+
+{% endblock %}
