@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Scan;
+use DateTimeImmutable;
 use App\Entity\Chapitre;
 use App\Form\ImagesType;
 use App\Form\NumeroType;
@@ -39,6 +40,9 @@ class ChapitreController extends AbstractController
         $chapitre->setManga($manga);
         $form = $this->createForm(NumeroType::class, $chapitre);
         $form->handleRequest($request);
+        $date = date('F j, Y, g:i a');
+        $dateImmu = new DateTimeImmutable($date);
+        $chapitre->setCreation($dateImmu);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($chapitre);

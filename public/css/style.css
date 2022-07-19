@@ -136,6 +136,11 @@ body {
     list-style-type: none;
   }
 
+  .creatade-manga {
+    border-radius : 10px;
+    height: 23.5em;
+  }
+
   @media screen and (max-width: 580px) {
 
     .manga-img
@@ -154,6 +159,11 @@ body {
     .detail-manga-description {
       font-size: 1.1em;
       list-style-type: none;
+    }
+
+    .creatade-manga {
+      border-radius : 10px;
+      height: 12.5em;
     }
   }
 
@@ -175,6 +185,11 @@ body {
     .detail-manga-description {
       font-size: 1em;
       list-style-type: none;
+    }
+
+    .creatade-manga {
+      border-radius : 10px;
+      height: 18em;
     }
   }
 
