@@ -33,16 +33,16 @@
 		</button>
 	</div>
 
-	<div class="container p-5">
-		<div class="px-5 py-2">
+	<div class="container px-lg-5 pt-lg-5">
+		<div class="px-sm-1 px-lg-5 py-2">
 			<h2>Les chapitres les plus récents</h2>
-			<div class="row row-cols-4 my-1 p-5">
+			<div class="row row-cols-4 my-lg-1 mt-3 mb-1 py-sm-2 px-lg-4 pt-lg-4 pb-lg-2">
 
 				{% for recentChapitre in recentsChapitres %}
 
-					<div class="col">
+					<div class="col-6 col-md-4 col-lg-3 d-flex align-items-center justify-content-center">
 						<a href="{{ path('read_scans', {'id': recentChapitre.id}) }}">
-							<img class="img-fluid section-img" src="{{ recentChapitre.manga.image }}" alt="">
+							<img class="img-fluid manga-img" src="{{ recentChapitre.manga.image }}" alt="">
 							<div>
 								<h3 class="mb-0" style="font-size: 1.3em !important">{{ recentChapitre.manga.nom }}</h4>
 								<h3 class="pt-1">Chapitre
@@ -62,16 +62,16 @@
 	<div class="container py-sm-2 p-lg-5">
 		<div class="px-sm-1 px-lg-5 py-2">
 			<h2>{{ editeur }}</h2>
-			<div class="row row-cols-4 my-1 p-lg-5 py-sm-3">
+			<div class="row row-cols-4 my-2 px-lg-4 py-lg-3 py-sm-2">
 				{% for value in mangas %}
 
 					{% for item in value %}
 
 						{% if item.editeur.nom is same as editeur %}
 						
-							<div class="col-sm-6 py-sm-3">
+							<div class="col-6 col-md-4 col-lg-3 py-3 d-flex align-items-center justify-content-center">
 								<a href="{{ path('details_manga', {'id': item.getId()  }) }}">
-									<img class="img-fluid home-img" src={{ item.getImage() }}>
+									<img class="img-fluid manga-img" src={{ item.getImage() }}>
 									<div>
 										<h3 class="mb-0" style="font-size: 1.3em !important">{{ item.getNom() }}</h4>
 									</div>

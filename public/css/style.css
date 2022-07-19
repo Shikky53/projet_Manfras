@@ -9,7 +9,7 @@ body {
   }
   
   h3 {
-    font-size: 1.2em !important;
+    font-size: 1.2em;
     font-family: "lambda";
     padding-top: 0.3em;
     color: white;
@@ -30,6 +30,14 @@ body {
 
   nav {
     background-color: #3c3c3c !important;
+  }
+
+  .navbar-toggler{
+    border-color: white !important;
+  }
+
+  .navbar-toggler:focus{
+    box-shadow: 0 0 0 0.15em white !important;
   }
 
   a {
@@ -109,20 +117,79 @@ body {
     background-color: #3131319d !important;
   }
   
+  .manga-img
+  {
+    width: 12rem;
+    height: 17rem;
+  }
+  
+  .detail-manga-img {
+    height: 28rem;
+  }
 
-  @media screen and (max-width: 769px) {
+  .detail-manga-titre {
+    font-size: 3em;
+  }
 
-    .home-img{
-      height: 27em;
+  .detail-manga-description {
+    font-size: 1.3em;
+    list-style-type: none;
+  }
+
+  @media screen and (max-width: 580px) {
+
+    .manga-img
+    {
+      height: 16rem;
+    }
+
+    .detail-manga-img {
+      height: 31rem;
+    }
+  
+    .detail-manga-titre {
+      font-size: 2.3em;
+    }
+  
+    .detail-manga-description {
+      font-size: 1.1em;
+      list-style-type: none;
     }
   }
 
-  @media screen and (min-width: 770px) {
+  @media screen and (min-width: 581px) and (max-width: 771px) {
 
-    .home-img{
-      height: 18em;
+    .manga-img
+    {
+      height: 16rem;
+    }
+
+    .detail-manga-img {
+      height: 18rem;
+    }
+
+    .detail-manga-titre {
+      font-size: 2em;
+    }
+  
+    .detail-manga-description {
+      font-size: 1em;
+      list-style-type: none;
     }
   }
+
+
+
+
+  .about-bg
+  {
+    background-image: url("../Assets/about-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 33rem;
+  }
+
 
   /***************** Bannières *****************/
 
@@ -155,6 +222,15 @@ footer {
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+@media screen and (max-width: 428px) {
+
+  footer
+  {
+    height: 13em;
+  }
+
 }
 
 footer a {

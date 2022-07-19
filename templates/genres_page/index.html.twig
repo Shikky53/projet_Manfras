@@ -6,19 +6,18 @@
 
 {% for genre in genres %}
 
-<div class="container">
-    <div class="my-5 mx-3 p-5">
+<div class="container py-2">
+    <div class="my-2 mx-sm-1 p-lg-5">
         <h2>{{ genre }}</h2>
-        <div class="row row-cols-4 my-1 p-5">
+        <div class="row row-cols-4 my-1 p-lg-5">
 
-    {% if mangas | length >= 1 %}
         {% for value in mangas %}
             {% for item in value %}
                 {% if item.genres.name is same as genre %}
 
-                    <div class="col">
+                    <div class="col-lg-3 col-md-4 col-6 py-3 d-flex align-items-center justify-content-center">
                         <a href="{{ path('details_manga', {'id':  item.getId() }) }}">
-                            <img class="img-fluid section-img" src="{{ item.getImage() }}" alt="">
+                            <img class="img-fluid manga-img" src="{{ item.getImage() }}" alt="">
                             <div>
                                 <h3 class="pt-1">{{ item.getNom() }}</h3>
                             </div>
@@ -28,7 +27,6 @@
                 {% endif %}
             {% endfor %}
         {% endfor %}
-    {% endif %}
 
         </div>
     </div>

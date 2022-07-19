@@ -3,12 +3,12 @@
 {% block title %} Details de l'oeuvre {% endblock %}
 
 {% block body %}
-<div class="container d-flex">
-    <div class="d-flex">
-        <img class="w-50" src="{{ manga.image }}" alt="">
-        <div class="ps-3 w-50">
-            <h3 style="font-size: 3em !important">{{ manga.nom }}</h3>
-            <ul style="list-style-type: none; font-size: 1.3em" class="p-0 text-white">
+<div class="container d-flex flex-column flex-md-row">
+    <div class="d-flex flex-md-row flex-column">
+        <img class="w-md-50 w-100 detail-manga-img p-4 p-md-0" src="{{ manga.image }}" alt="">
+        <div class="ps-3 w-md-50 w-100">
+            <h3 class="detail-manga-titre pt-0 pt-md-1">{{ manga.nom }}</h3>
+            <ul class="p-0 text-white detail-manga-description">
                 <li>Scénario : {{ manga.nomDuCreateur }}</li>
                 <li>Dessin : {{ manga.dessin }} </li>
                 <li>Genre : {{ manga.genres.name }}</li>
@@ -26,7 +26,7 @@
             </ul>
         </div>
     </div>
-    <div class="d-flex align-items-end justify-content-evenly w-50">
+    <div class="d-flex align-items-end justify-content-evenly w-md-50 w-100 pt-4 pt-0">
         {% if chapitres is empty %}
             <a style="width: 40%" class="btn btn-outline-info p-2" href="">Lire le premier chapitre</a>
             <a style="width: 40%" class="btn btn-outline-info p-2" href="">Lire le dernier chapitre</a>
@@ -40,14 +40,14 @@
     <h5>Synopsis :</h5>
     <p>{{ manga.description }}</p>
 </div>
-<div class="container mt-4">
+<div class="container pt-1 pt-md-0 mt-4">
     {% for chapitre in chapitres %}
         {% if chapitre is null %}
             <div>
                 <p>Ce manga ne contient pas encore de chapitre revenez plus tard</p>
             </div>
         {% else %}
-            <div class="bg-info bg-opacity-50 w-50 py-2 ps-3 mt-2">
+            <div class="bg-info bg-opacity-50 w-100 w-md-50 py-2 ps-3 mt-2">
                 <a href="{{ path('read_scans', {'id': chapitre.id }) }}"><h5 class="m-0">Chapitre {{ chapitre.numero }}</h5></a>
             </div>
         {% endif %}
