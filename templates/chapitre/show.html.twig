@@ -23,7 +23,11 @@
 
                     {% endif %}
                     <div class="mx-2 pt-4">
-                        <a href="{{ path('chapitre_edit', {'id': chapitre.id, 'isScan': 'n'}) }}" class="btn btn-outline-info my-4">Modifier le numéro du chapitre</a>
+                        <a href="{{ path('chapitre_edit', {'mId': manga.id, 'id': chapitre.id, 'isScan': 'n'}) }}" class="btn btn-outline-info my-4">Modifier le numéro du chapitre</a>
+                        <form method="post" action="{{ path('chapitre_delete', {'mId': manga.id,'id': chapitre.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer ce chapitre ?">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chapitre.id) }}">
+                            <button class="btn btn-outline-danger">Supprimer</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -32,7 +36,7 @@
     <div class="col-9 pt-2 border-top border-start border-dark">
         <div class="row justify-content-between pt-5">
             <div class="col-5">
-                <a href="{{ path('chapitre_edit', {'id' : chapitre.id,  'isScan': 's'}) }}" type="button" class="btn btn-outline-info mx-3">Ajouter une/des page(s)</a>
+                <a href="{{ path('chapitre_edit', {'mId': manga.id, 'id' : chapitre.id,  'isScan': 's'}) }}" type="button" class="btn btn-outline-info mx-3">Ajouter une/des page(s)</a>
             </div>
         </div>
         <div class="col-8 px-3 mt-4">
@@ -49,8 +53,8 @@
                                         <img src="{{ scan.Image }}" class="img-fluid w-100" style="height: 13em !important" alt="">
                                     </div>
                                     <div class="card-footer">
-                                        <a href="{{ path('scan_edit',{ 'id' : scan.id } ) }}" class="btn btn-outline-info w-100 mb-2">Modifier</a>
-                                        <form method="post" action="{{ path('scan_delete', {'id': scan.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer cette page ?">
+                                        <a href="{{ path('scan_edit',{'mId': manga.id, 'cId': chapitre.id, 'id' : scan.id } ) }}" class="btn btn-outline-info w-100 mb-2">Modifier</a>
+                                        <form method="post" action="{{ path('scan_delete', {'mId': manga.id, 'cId': chapitre.id, 'id': scan.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer cette page ?">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ scan.id) }}">
                                             <button class="btn btn-outline-danger w-100">Supprimer</button>
                                         </form>

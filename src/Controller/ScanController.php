@@ -6,6 +6,7 @@ use App\Entity\Scan;
 use App\Form\ScanType;
 use App\Services\HandleImage;
 use App\Repository\ScanRepository;
+use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,9 +65,11 @@ class ScanController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'scan_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Scan $scan, EntityManagerInterface $entityManager, HandleImage $handleImage): Response
+    #[Route('{mId}/{cId}/{id}/edit', name: 'scan_edit', methods: ['GET', 'POST'])]
+    public function edit(int $cId, int $mId, Request $request, Scan $scan, EntityManagerInterface $entityManager, HandleImage $handleImage, ChapitreRepository $chapitreRepository, MangaRepository $mangaRepository): Response
     {
+        $chapitre = $chapitreRepository->find($cId);
+        $manga = $mangaRepository->find($mId);
         $oldImage = $scan->getImage();
         $form = $this->createForm(ScanType::class, $scan);
         $form->handleRequest($request);
@@ -81,7 +84,7 @@ class ScanController extends AbstractController
             
             $entityManager->flush();
 
-            return $this->redirectToRoute('scan_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['mId' => $manga->getId(),'id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('scan/edit.html.twig', [
@@ -90,16 +93,17 @@ class ScanController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'scan_delete', methods: ['GET', 'POST'])]
-    public function delete(int $id, Request $request, Scan $scan, EntityManagerInterface $entityManager, ChapitreRepository $chapitreRepository): Response
+    #[Route('{mId}/{cId}/{id}', name: 'scan_delete', methods: ['POST'])]
+    public function delete(int $mId, int $cId, Request $request, Scan $scan, EntityManagerInterface $entityManager, ChapitreRepository $chapitreRepository, MangaRepository $mangaRepository): Response
     {
-        $chapitre = $chapitreRepository->find($id);
+        $chapitre = $chapitreRepository->find($cId);
+        $manga = $mangaRepository->find($mId);
 
         if ($this->isCsrfTokenValid('delete'.$scan->getId(), $request->request->get('_token'))) {
             $entityManager->remove($scan);
             $entityManager->flush();
             
-            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['mId' => $manga->getId(), 'id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
         
     }

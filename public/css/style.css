@@ -141,6 +141,10 @@ body {
     height: 23.5em;
   }
 
+  .chapitre-numero {
+    font-size: 1.1em;
+  }
+
   @media screen and (max-width: 580px) {
 
     .manga-img
@@ -189,7 +193,7 @@ body {
 
     .creatade-manga {
       border-radius : 10px;
-      height: 18em;
+      height: 16em;
     }
   }
 

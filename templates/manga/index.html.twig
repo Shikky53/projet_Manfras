@@ -4,7 +4,7 @@
 
 {% block body %}
             <h1 class="px-3">Vos Mangas</h1>
-            <div class="container px-3 py-4">
+            <div class="container px-3 py-4 d-flex justify-content-center justify-content-md-start">
                 <a href="{{ path('manga_new') }}" class="px-5 btn btn-outline-info">Créer un nouveau manga</a>
             </div>
             
@@ -21,7 +21,7 @@
                             <img class="img-fluid w-100 creatade-manga" src="{{ manga.image }}" alt="">
                             <p class="pt-3">Date de création : {{manga.debut | date("d-M-Y")}}</p>
                         </div>
-                        <div class="pb-lg-4 pb text-center">
+                        <div class="pb-lg-4 pb-0 text-center">
                         
                            {% if manga.editeur is same as null %}
 
@@ -34,11 +34,11 @@
                             {% endif %}
 
                         </div>
-                        <div class="pb-4 text-center">
+                        <div class="pb-2 pb-md-4 text-center">
                             <a href="{{ path('manga_show', {'id': manga.id}) }}" class="btn btn-outline-info">Voir/Ajouter un chapitre</a>
                         </div>
-                        <div class="card-text text-center d-flex justify-content-around mb-3">
-                            <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info">Modifier</a>
+                        <div class="card-text text-center d-flex flex-column flex-md-row justify-content-around mb-3">
+                            <a href="{{ path('manga_edit', {'id': manga.id}) }}" class="btn btn-outline-info mb-2 mb-md-0">Modifier</a>
                             <form method="post" action="{{ path('manga_delete', {'id': manga.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer ce manga ?">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ manga.id) }}">
                                 <button class="btn btn-outline-danger w-100">Supprimer</button>

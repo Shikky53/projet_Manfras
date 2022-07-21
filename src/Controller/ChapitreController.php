@@ -13,6 +13,7 @@ use App\Repository\ScanRepository;
 use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,9 +59,11 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'chapitre_show', methods: ['GET'])]
-    public function show(Chapitre $chapitre, ScanRepository $scanRepository,PaginatorInterface $paginator, Request $request): Response
+    #[Route('{mId}/{id}', name: 'chapitre_show', methods: ['GET'])]
+    public function show(int $mId, Chapitre $chapitre, ScanRepository $scanRepository, MangaRepository $mangaRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $manga = $mangaRepository->find($mId);
+
         $firstScan = $scanRepository->findOneBy(['chapitre' => $chapitre]);
         $scans = $paginator->paginate(
             $scanRepository->findBy([
@@ -73,13 +76,15 @@ class ChapitreController extends AbstractController
         return $this->render('chapitre/show.html.twig', [
             'chapitre' => $chapitre,
             'scans' => $scans,
-            'firstScan' => $firstScan
+            'firstScan' => $firstScan,
+            'manga' => $manga
         ]);
     }
 
-    #[Route('/{id}/{isScan}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, string $isScan, ChapitreRepository $chapitreRepository, Request $request, HandleImage $handleImage, EntityManagerInterface $entityManager): Response
+    #[Route('{mId}/{id}/{isScan}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
+    public function edit(int $mId, int $id, string $isScan, ChapitreRepository $chapitreRepository, MangaRepository $mangaRepository, Request $request, HandleImage $handleImage, EntityManagerInterface $entityManager): Response
     {
+        $manga = $mangaRepository->find($mId);
         $chapitre = $chapitreRepository->find($id);
         $numeroForm = $this->createForm(NumeroType::class);
         $imageForm = $this->createForm(ImagesType::class);
@@ -90,7 +95,7 @@ class ChapitreController extends AbstractController
             $chapitre->setNumero($numero);
             $entityManager->persist($chapitre);
             $entityManager->flush();
-            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['mId' => $manga->getId(), 'id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
         //Viveleback : mdp teamviewer
         $imageForm->handleRequest($request);
@@ -111,7 +116,7 @@ class ChapitreController extends AbstractController
             $entityManager->persist($chapitre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('chapitre_show', ['id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('chapitre_show', ['mId' => $manga->getId(), 'id' => $chapitre->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chapitre/edit.html.twig', [
@@ -122,10 +127,10 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'chapitre_delete', methods: ['POST'])]
-    public function delete(int $id, Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
+    #[Route('{mId}/{id}', name: 'chapitre_delete', methods: ['POST'])]
+    public function delete(int $mId, Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
     {
-        $manga = $mangaRepository->find($id);
+        $manga = $mangaRepository->find($mId);
 
         if ($this->isCsrfTokenValid('delete'.$chapitre->getId(), $request->request->get('_token'))) {
             $entityManager->remove($chapitre);
