@@ -8,12 +8,13 @@ use App\Entity\Chapitre;
 use App\Form\ImagesType;
 use App\Form\NumeroType;
 use App\Form\ChapitreType;
+use Doctrine\ORM\Mapping\Id;
 use App\Services\HandleImage;
 use App\Repository\ScanRepository;
+use App\Repository\UserRepository;
 use App\Repository\MangaRepository;
 use App\Repository\ChapitreRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,9 +34,13 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('{id}/{isScan}/new', name: 'chapitre_new', methods: ['GET', 'POST'])]
-    public function new(int $id, string $isScan, Request $request, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
+    #[Route('/u{uId}/{id}/{isScan}/new', name: 'chapitre_new', methods: ['GET', 'POST'])]
+    public function new(int $uId, int $id, string $isScan, Request $request, EntityManagerInterface $entityManager, MangaRepository $mangaRepository, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find($uId);
+        // /** @var User */
+        // $user2 = $this->getUser();
+        // dump($user, $user2);
         $manga = $mangaRepository->find($id);
         $chapitre = new Chapitre();
         $chapitre->setManga($manga);
@@ -49,7 +54,7 @@ class ChapitreController extends AbstractController
             $entityManager->persist($chapitre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('manga_show', ['id'=> $manga->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('manga_show', ['uId' => $user->getId(),'id'=> $manga->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('chapitre/new.html.twig', [
@@ -59,7 +64,7 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('{mId}/{id}', name: 'chapitre_show', methods: ['GET'])]
+    #[Route('{id}/m{mId}', name: 'chapitre_show', methods: ['GET'])]
     public function show(int $mId, Chapitre $chapitre, ScanRepository $scanRepository, MangaRepository $mangaRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $manga = $mangaRepository->find($mId);
@@ -70,7 +75,7 @@ class ChapitreController extends AbstractController
                 'chapitre' => $chapitre
             ]),
             $request->query->getInt('page', 1),
-            5
+            4
         );
 
         return $this->render('chapitre/show.html.twig', [
@@ -81,7 +86,7 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('{mId}/{id}/{isScan}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
+    #[Route('{id}/m{mId}/{isScan}/edit', name: 'chapitre_edit', methods: ['GET', 'POST'])]
     public function edit(int $mId, int $id, string $isScan, ChapitreRepository $chapitreRepository, MangaRepository $mangaRepository, Request $request, HandleImage $handleImage, EntityManagerInterface $entityManager): Response
     {
         $manga = $mangaRepository->find($mId);
@@ -127,16 +132,17 @@ class ChapitreController extends AbstractController
         ]);
     }
 
-    #[Route('{mId}/{id}', name: 'chapitre_delete', methods: ['POST'])]
-    public function delete(int $mId, Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager, MangaRepository $mangaRepository): Response
+    #[Route('{id}/m{mId}/u{uId}', name: 'chapitre_delete', methods: ['POST'])]
+    public function delete(int $uId, int $mId, Request $request, Chapitre $chapitre, EntityManagerInterface $entityManager, MangaRepository $mangaRepository, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find($uId);
         $manga = $mangaRepository->find($mId);
 
         if ($this->isCsrfTokenValid('delete'.$chapitre->getId(), $request->request->get('_token'))) {
             $entityManager->remove($chapitre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('manga_show', ['id' => $manga->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('manga_show', ['uId' => $user->getId(), 'id' => $manga->getId()], Response::HTTP_SEE_OTHER);
         }
 
     }

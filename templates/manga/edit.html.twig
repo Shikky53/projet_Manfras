@@ -5,9 +5,6 @@
 {% block body %}
     <h1>Modifier le manga</h1>
 
-    {{ include('manga/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('manga/_form.html.twig') }}
 
-    <a href="{{ path('manga_index') }}">Reotur à la liste</a>
-
-    {{ include('manga/_delete_form.html.twig') }}
 {% endblock %}

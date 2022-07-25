@@ -40,6 +40,30 @@
     <h5>Synopsis :</h5>
     <p>{{ manga.description }}</p>
 </div>
+
+{% if app.user.roles[0] is same as "ROLE_ADMIN" %}
+<div class="container pt-1 pt-md-0 mt-4">
+    {% for chapitre in chapitres %}
+        {% if chapitre is null %}
+            <div>
+                <p>Ce manga ne contient pas encore de chapitre revenez plus tard</p>
+            </div>
+        {% else %}
+        <div class="w-100 d-flex flex-column flex-md-row align-items-center">
+            <div class="bg-info bg-opacity-50 w-100 w-md-50 py-2 ps-3 mt-2">
+                <a href="{{ path('read_scans', {'id': chapitre.id }) }}"><h5 class="m-0">Chapitre {{ chapitre.numero }}</h5></a>
+            </div>
+            <form class="w-100 w-md-50" method="post" action="{{ path('chapitre_delete', {'id': chapitre.id, 'mId': manga.id, 'uId': app.user.id}) }}" onsubmit="Souhaitez-vous vraiment supprimer ce chapitre ?">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ chapitre.id) }}">
+                <button class="btn btn-outline-danger w-100 w-md-25 mt-2 mb-3 mb-md-0 mt-md-2 ms-md-2">Supprimer</button>
+            </form>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if app.user.roles[0] is same as "ROLE_USER" %}
 <div class="container pt-1 pt-md-0 mt-4">
     {% for chapitre in chapitres %}
         {% if chapitre is null %}
@@ -53,4 +77,6 @@
         {% endif %}
     {% endfor %}
 </div>
+{% endif %}
+
 {% endblock %}

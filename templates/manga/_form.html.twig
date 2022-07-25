@@ -4,7 +4,7 @@
         {{ form_widget(form) }}
     </div>
     <button class="btn btn-outline-info my-5">{{ button_label|default('Enregistrer') }}</button>
-    <a href="{{ path('manga_index') }}" class="btn btn-outline-danger pl-2">Retour à la liste</a>
+    <a href="{{ path('manga_index', {'mId': manga.id, 'uId': app.user.id} ) }}" class="btn btn-outline-danger pl-2">Retour à la liste</a>
 </div>
 {{ form_end(form) }}
 

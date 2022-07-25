@@ -20,7 +20,7 @@
         {% if app.user.roles[0] is same as "ROLE_ADMIN" or "ROLE_USER" %}
 
         <li class="nav-item px-2">
-          <a class="nav-link" href="{{ path('manga_index') }}">Publiez</a>
+          <a class="nav-link" href="{{ path('manga_index', {'uId' : app.user.id} ) }}">Publiez</a>
         </li>
 
         {% endif %}
@@ -41,7 +41,7 @@
 
         {% if app.user %}
 
-        {% if app.user.roles[0] is same as "ROLE_ADMIN" %}
+        {% if app.user.roles[0] is same as "ROLE_ADMIN" or "ROLE_USER" %}
         
             <a href="{{ path('profile') }}"><i class="fas fa-user-circle my-3 my-lg-0"></i></a>
             <a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>

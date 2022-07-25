@@ -49,6 +49,10 @@ class Manga
     #[ORM\ManyToOne(targetEntity: Genres::class, inversedBy: 'manga')]
     private $genres;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'mangas')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $user;
+
     #[ORM\PrePersist]
     public function prePersist()
     {
@@ -202,6 +206,18 @@ class Manga
     public function setGenres(?Genres $genres): self
     {
         $this->genres = $genres;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

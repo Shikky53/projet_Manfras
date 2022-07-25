@@ -113,10 +113,6 @@ body {
     transition: 0.5s !important;
   }
   
-  .allSection button:hover {
-    background-color: #3131319d !important;
-  }
-  
   .manga-img
   {
     width: 12rem;
@@ -139,6 +135,21 @@ body {
   .creatade-manga {
     border-radius : 10px;
     height: 23.5em;
+  }
+
+  .show-manga-img {
+    border-radius : 5px;
+    height: 29em;
+  }
+
+  .first-scan-img {
+    border-radius : 5px;
+    height: 29em;
+  }
+
+  .paginator-img {
+    height: 13em;
+    width: 9em;
   }
 
   .chapitre-numero {
@@ -168,6 +179,16 @@ body {
     .creatade-manga {
       border-radius : 10px;
       height: 12.5em;
+    }
+
+    .show-manga-img{
+      border-radius : 5px;
+      height: 16em;
+    }
+
+    .first-scan-img {
+      border-radius : 5px;
+      height: 27em;
     }
   }
 
@@ -235,6 +256,9 @@ body {
 /***************** Footer *****************/
 
 footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   margin-top: 2em;
   background-color: rgb(44, 44, 44);
   height: 7em;
