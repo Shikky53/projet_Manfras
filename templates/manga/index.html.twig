@@ -19,7 +19,6 @@
     {% endif %}
             <div class="container py-3">
                 <div class="row justify-content-evenly">
-
                 {% if app.user.roles[0] is same as "ROLE_ADMIN" %}
                     {% for manga in AllMangas %}
 
@@ -56,6 +55,7 @@
             
                     {% endfor %}
                 {% endif %}
+
 
                 {% if app.user.roles[0] is same as "ROLE_USER" %}
                     {% for manga in mangas %}

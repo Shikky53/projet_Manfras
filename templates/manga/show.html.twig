@@ -58,13 +58,12 @@
 					{{ knp_pagination_render(chapitres) }}
 				</div>
 				<div class="row">
-					<div class="d-flex flex-column flex-lg-row py-1 py-lg-5 px-lg-4" style="">
+					<div class="d-flex flex-column flex-lg-row py-1 py-lg-5 px-lg-4">
 						{% set i = 0 %}
 						{% for chapitre in chapitres %}
 							{% if (i % 2) == 0 %}
 								<div class="w-100 w-lg-50 d-flex align-items-center flex-row justify-content-lg-around">
-								{% endif %}
-
+							{% endif %}
 								<div class=" col-lg-5 col-6 mx-1 mx-lg-3 pt-1 pt-lg-0 pb-1 pb-lg-0">
 									<div class="row">
 										<div class="card">
@@ -93,7 +92,7 @@
 								</div>
 								{% if i == 1 or i == 3 %}
 								</div>
-							{% endif %}
+							    {% endif %}
 							{% set i = i + 1 %}
 						{% endfor %}
 
